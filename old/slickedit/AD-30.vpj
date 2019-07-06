@@ -1,0 +1,476 @@
+<!DOCTYPE Project SYSTEM "http://www.slickedit.com/dtd/vse/10.0/vpj.dtd">
+<Project
+  Version="10.0"
+  VendorName="SlickEdit"
+  TemplateName="Other C/C++"
+  WorkingDir=".">
+  <Config
+    Name="Debug"
+    Type="cpp"
+    DebugCallbackName="gdb"
+    OutputFile="%bdAD-30"
+    CompilerConfigName="Latest Version">
+    <Menu>
+      <Target
+        Name="Compile"
+        MenuCaption="&amp;Compile"
+        CaptureOutputWith="ProcessBuffer"
+        OutputExts="*.o"
+        SaveOption="SaveCurrent"
+        RunFromDir="%rw">
+        <Exec CmdLine='cc -c -g %i %defd -o "%bd%n.o" "%f"'/>
+      </Target>
+      <Target
+        Name="Link"
+        MenuCaption="&amp;Link">
+        <Exec CmdLine='cc -g -o "%o" %f %libs'/>
+      </Target>
+      <Target
+        Name="Build"
+        MenuCaption="&amp;Build"
+        CaptureOutputWith="ProcessBuffer"
+        SaveOption="SaveWorkspaceFiles"
+        RunFromDir="%rw">
+        <Exec CmdLine='"%(VSLICKBIN1)vsbuild" build "%w" "%r"'/>
+      </Target>
+      <Target
+        Name="Rebuild"
+        MenuCaption="&amp;Rebuild"
+        CaptureOutputWith="ProcessBuffer"
+        SaveOption="SaveWorkspaceFiles"
+        RunFromDir="%rw">
+        <Exec CmdLine='"%(VSLICKBIN1)vsbuild" rebuild "%w" "%r"'/>
+      </Target>
+      <Target
+        Name="Debug"
+        MenuCaption="&amp;Debug"
+        SaveOption="SaveNone"
+        BuildFirst="1"
+        CaptureOutputWith="ProcessBuffer"
+        RunFromDir="%rw">
+        <Exec CmdLine='vsdebugio -prog "%o"'/>
+      </Target>
+      <Target
+        Name="Execute"
+        MenuCaption="E&amp;xecute"
+        SaveOption="SaveNone"
+        BuildFirst="1"
+        CaptureOutputWith="ProcessBuffer"
+        RunFromDir="%rw">
+        <Exec CmdLine='"%o"'/>
+      </Target>
+    </Menu>
+  </Config>
+  <Config
+    Name="Release"
+    Type="cpp"
+    DebugCallbackName="gdb"
+    OutputFile="%bdAD-30"
+    CompilerConfigName="Latest Version">
+    <Menu>
+      <Target
+        Name="Compile"
+        MenuCaption="&amp;Compile"
+        CaptureOutputWith="ProcessBuffer"
+        SaveOption="SaveCurrent"
+        OutputExts="*.o"
+        RunFromDir="%rw">
+        <Exec CmdLine='cc -c -O %i %defd -o "%bd%n.o" "%f"'/>
+      </Target>
+      <Target
+        Name="Link"
+        MenuCaption="&amp;Link">
+        <Exec CmdLine='cc -O -o "%o" %f %libs'/>
+      </Target>
+      <Target
+        Name="Build"
+        MenuCaption="&amp;Build"
+        CaptureOutputWith="ProcessBuffer"
+        SaveOption="SaveWorkspaceFiles"
+        RunFromDir="%rw">
+        <Exec CmdLine='"%(VSLICKBIN1)vsbuild" build "%w" "%r"'/>
+      </Target>
+      <Target
+        Name="Rebuild"
+        MenuCaption="&amp;Rebuild"
+        CaptureOutputWith="ProcessBuffer"
+        SaveOption="SaveWorkspaceFiles"
+        RunFromDir="%rw">
+        <Exec CmdLine='"%(VSLICKBIN1)vsbuild" rebuild "%w" "%r"'/>
+      </Target>
+      <Target
+        Name="Debug"
+        MenuCaption="&amp;Debug"
+        SaveOption="SaveNone"
+        BuildFirst="1"
+        CaptureOutputWith="ProcessBuffer"
+        RunFromDir="%rw">
+        <Exec CmdLine='vsdebugio -prog "%o"'/>
+      </Target>
+      <Target
+        Name="Execute"
+        MenuCaption="E&amp;xecute"
+        SaveOption="SaveNone"
+        BuildFirst="1"
+        CaptureOutputWith="ProcessBuffer"
+        RunFromDir="%rw">
+        <Exec CmdLine='"%o"'/>
+      </Target>
+    </Menu>
+  </Config>
+  <Rules Name="Compile">
+    <Rule
+      InputExts="*.s"
+      OutputExts="*.o"
+      LinkObject="1">
+      <Exec CmdLine='as -o "%bd%n.o" "%f"'/>
+    </Rule>
+  </Rules>
+  <CustomFolders>
+    <Folder
+      Name="Source Files"
+      Filters="*.c;*.C;*.cc;*.cpp;*.cp;*.cxx;*.c++;*.prg;*.pas;*.dpr;*.asm;*.s;*.bas;*.java;*.cs;*.sc;*.scala;*.e;*.cob;*.html;*.rc;*.tcl;*.py;*.pl;*.d;*.m;*.mm;*.go;*.groovy;*.gsh"
+      GUID="{7D3D63D5-2D2D-4CA8-1F59-17595ACE5CA5}"></Folder>
+    <Folder
+      Name="Header Files"
+      Filters="*.h;*.H;*.hh;*.hpp;*.hxx;*.h++;*.inc;*.sh;*.cpy;*.if"
+      GUID="{E53FFFFD-94C0-4EEC-5B34-110898B51FA0}"></Folder>
+    <Folder
+      Name="Resource Files"
+      Filters="*.ico;*.cur;*.dlg"
+      GUID="{1DB2566C-4848-4405-6823-08507DA15B96}"/>
+    <Folder
+      Name="Bitmaps"
+      Filters="*.bmp"
+      GUID="{000A9D98-2819-4E39-961B-96C6CEEEA68A}"/>
+    <Folder
+      Name="Other Files"
+      Filters=""
+      GUID="{13D53D91-0689-43A2-81EB-425EFEDE95B9}"></Folder>
+  </CustomFolders>
+  <Files AutoFolders="DirectoryView">
+    <Folder Name="../V1.0">
+      <Folder Name=".vscode">
+        <F N="../V1.0/.vscode/settings.json"/>
+      </Folder>
+      <Folder Name="CORE">
+        <F N="../V1.0/CORE/core_cm3.c"/>
+        <F N="../V1.0/CORE/core_cm3.h"/>
+        <F N="../V1.0/CORE/startup_stm32f10x_hd.s"/>
+        <F N="../V1.0/CORE/startup_stm32f10x_md.s"/>
+      </Folder>
+      <Folder Name="HARDWARE">
+        <Folder Name="cJSON">
+          <F N="../V1.0/HARDWARE/cJSON/cJSON.c"/>
+          <F N="../V1.0/HARDWARE/cJSON/cJSON.h"/>
+        </Folder>
+        <Folder Name="KEY">
+          <F N="../V1.0/HARDWARE/KEY/key.c"/>
+          <F N="../V1.0/HARDWARE/KEY/key.h"/>
+        </Folder>
+        <Folder Name="LED">
+          <F N="../V1.0/HARDWARE/LED/led.c"/>
+          <F N="../V1.0/HARDWARE/LED/led.h"/>
+        </Folder>
+        <Folder Name="MALLOC">
+          <F N="../V1.0/HARDWARE/MALLOC/malloc.c"/>
+          <F N="../V1.0/HARDWARE/MALLOC/malloc.h"/>
+        </Folder>
+        <Folder Name="MOTO">
+          <F N="../V1.0/HARDWARE/MOTO/moto.c"/>
+          <F N="../V1.0/HARDWARE/MOTO/moto.h"/>
+        </Folder>
+        <Folder Name="W25QXX">
+          <F N="../V1.0/HARDWARE/W25QXX/w25qxx.c"/>
+          <F N="../V1.0/HARDWARE/W25QXX/w25qxx.h"/>
+        </Folder>
+        <Folder Name="w5500">
+          <Folder Name="Application">
+            <Folder Name="loopback">
+              <F N="../V1.0/HARDWARE/w5500/Application/loopback/loopback.c"/>
+              <F N="../V1.0/HARDWARE/w5500/Application/loopback/loopback.h"/>
+            </Folder>
+          </Folder>
+          <Folder Name="Ethernet">
+            <Folder Name="W5500">
+              <F N="../V1.0/HARDWARE/w5500/Ethernet/W5500/w5500.c"/>
+              <F N="../V1.0/HARDWARE/w5500/Ethernet/W5500/w5500.h"/>
+            </Folder>
+            <F N="../V1.0/HARDWARE/w5500/Ethernet/socket.c"/>
+            <F N="../V1.0/HARDWARE/w5500/Ethernet/socket.h"/>
+            <F N="../V1.0/HARDWARE/w5500/Ethernet/spi.c"/>
+            <F N="../V1.0/HARDWARE/w5500/Ethernet/spi.h"/>
+            <F N="../V1.0/HARDWARE/w5500/Ethernet/wizchip_conf.c"/>
+            <F N="../V1.0/HARDWARE/w5500/Ethernet/wizchip_conf.h"/>
+          </Folder>
+          <Folder Name="Internet">
+            <Folder Name="DHCP">
+              <F N="../V1.0/HARDWARE/w5500/Internet/DHCP/dhcp.c"/>
+              <F N="../V1.0/HARDWARE/w5500/Internet/DHCP/dhcp.h"/>
+            </Folder>
+            <Folder Name="DNS">
+              <F N="../V1.0/HARDWARE/w5500/Internet/DNS/dns.c"/>
+              <F N="../V1.0/HARDWARE/w5500/Internet/DNS/dns.h"/>
+            </Folder>
+          </Folder>
+        </Folder>
+        <Folder Name="WDG">
+          <F N="../V1.0/HARDWARE/WDG/wdg.c"/>
+          <F N="../V1.0/HARDWARE/WDG/wdg.h"/>
+        </Folder>
+      </Folder>
+      <Folder Name="OBJ">
+        <F N="../V1.0/OBJ/AD-30.axf"/>
+        <F N="../V1.0/OBJ/AD-30.build_log.htm"/>
+        <F N="../V1.0/OBJ/AD-30.hex"/>
+        <F N="../V1.0/OBJ/AD-30.htm"/>
+        <F N="../V1.0/OBJ/AD-30.lnp"/>
+        <F N="../V1.0/OBJ/AD-30.sct"/>
+        <F N="../V1.0/OBJ/AD-30_AD-30.dep"/>
+        <F N="../V1.0/OBJ/AD-30_sct.Bak"/>
+        <F N="../V1.0/OBJ/analysis_protocol.crf"/>
+        <F N="../V1.0/OBJ/analysis_protocol.d"/>
+        <F N="../V1.0/OBJ/analysis_protocol.o"/>
+        <F N="../V1.0/OBJ/ananlysis_data.crf"/>
+        <F N="../V1.0/OBJ/ananlysis_data.d"/>
+        <F N="../V1.0/OBJ/ananlysis_data.o"/>
+        <F N="../V1.0/OBJ/cjson.crf"/>
+        <F N="../V1.0/OBJ/cjson.d"/>
+        <F N="../V1.0/OBJ/cjson.o"/>
+        <F N="../V1.0/OBJ/core_cm3.crf"/>
+        <F N="../V1.0/OBJ/core_cm3.d"/>
+        <F N="../V1.0/OBJ/core_cm3.o"/>
+        <F N="../V1.0/OBJ/delay.crf"/>
+        <F N="../V1.0/OBJ/delay.d"/>
+        <F N="../V1.0/OBJ/delay.o"/>
+        <F N="../V1.0/OBJ/dhcp.crf"/>
+        <F N="../V1.0/OBJ/dhcp.d"/>
+        <F N="../V1.0/OBJ/dhcp.o"/>
+        <F N="../V1.0/OBJ/dns.crf"/>
+        <F N="../V1.0/OBJ/dns.d"/>
+        <F N="../V1.0/OBJ/dns.o"/>
+        <F N="../V1.0/OBJ/ds1302.crf"/>
+        <F N="../V1.0/OBJ/ds1302.d"/>
+        <F N="../V1.0/OBJ/ds1302.o"/>
+        <F N="../V1.0/OBJ/ExtDll.iex"/>
+        <F N="../V1.0/OBJ/fifo.crf"/>
+        <F N="../V1.0/OBJ/fifo.d"/>
+        <F N="../V1.0/OBJ/fifo.o"/>
+        <F N="../V1.0/OBJ/gun.crf"/>
+        <F N="../V1.0/OBJ/key.crf"/>
+        <F N="../V1.0/OBJ/key.d"/>
+        <F N="../V1.0/OBJ/key.o"/>
+        <F N="../V1.0/OBJ/led.crf"/>
+        <F N="../V1.0/OBJ/led.d"/>
+        <F N="../V1.0/OBJ/led.o"/>
+        <F N="../V1.0/OBJ/loopback.crf"/>
+        <F N="../V1.0/OBJ/loopback.d"/>
+        <F N="../V1.0/OBJ/loopback.o"/>
+        <F N="../V1.0/OBJ/m_w5500_conf.crf"/>
+        <F N="../V1.0/OBJ/m_w5500_conf.d"/>
+        <F N="../V1.0/OBJ/m_w5500_conf.o"/>
+        <F N="../V1.0/OBJ/main.crf"/>
+        <F N="../V1.0/OBJ/main.d"/>
+        <F N="../V1.0/OBJ/main.o"/>
+        <F N="../V1.0/OBJ/malloc.crf"/>
+        <F N="../V1.0/OBJ/malloc.d"/>
+        <F N="../V1.0/OBJ/malloc.o"/>
+        <F N="../V1.0/OBJ/misc.crf"/>
+        <F N="../V1.0/OBJ/misc.d"/>
+        <F N="../V1.0/OBJ/misc.o"/>
+        <F N="../V1.0/OBJ/moto.crf"/>
+        <F N="../V1.0/OBJ/moto.d"/>
+        <F N="../V1.0/OBJ/moto.o"/>
+        <F N="../V1.0/OBJ/prjlib.crf"/>
+        <F N="../V1.0/OBJ/prjlib.d"/>
+        <F N="../V1.0/OBJ/prjlib.o"/>
+        <F N="../V1.0/OBJ/rtc.crf"/>
+        <F N="../V1.0/OBJ/rtc.d"/>
+        <F N="../V1.0/OBJ/rtc.o"/>
+        <F N="../V1.0/OBJ/schedule.crf"/>
+        <F N="../V1.0/OBJ/schedule.d"/>
+        <F N="../V1.0/OBJ/schedule.o"/>
+        <F N="../V1.0/OBJ/socket.crf"/>
+        <F N="../V1.0/OBJ/socket.d"/>
+        <F N="../V1.0/OBJ/socket.o"/>
+        <F N="../V1.0/OBJ/spi.crf"/>
+        <F N="../V1.0/OBJ/spi.d"/>
+        <F N="../V1.0/OBJ/spi.o"/>
+        <F N="../V1.0/OBJ/startup_stm32f10x_md.d"/>
+        <F N="../V1.0/OBJ/startup_stm32f10x_md.o"/>
+        <F N="../V1.0/OBJ/stm32f10x_bkp.crf"/>
+        <F N="../V1.0/OBJ/stm32f10x_bkp.d"/>
+        <F N="../V1.0/OBJ/stm32f10x_bkp.o"/>
+        <F N="../V1.0/OBJ/stm32f10x_gpio.crf"/>
+        <F N="../V1.0/OBJ/stm32f10x_gpio.d"/>
+        <F N="../V1.0/OBJ/stm32f10x_gpio.o"/>
+        <F N="../V1.0/OBJ/stm32f10x_it.crf"/>
+        <F N="../V1.0/OBJ/stm32f10x_it.d"/>
+        <F N="../V1.0/OBJ/stm32f10x_it.o"/>
+        <F N="../V1.0/OBJ/stm32f10x_iwdg.crf"/>
+        <F N="../V1.0/OBJ/stm32f10x_iwdg.d"/>
+        <F N="../V1.0/OBJ/stm32f10x_iwdg.o"/>
+        <F N="../V1.0/OBJ/stm32f10x_pwr.crf"/>
+        <F N="../V1.0/OBJ/stm32f10x_pwr.d"/>
+        <F N="../V1.0/OBJ/stm32f10x_pwr.o"/>
+        <F N="../V1.0/OBJ/stm32f10x_rcc.crf"/>
+        <F N="../V1.0/OBJ/stm32f10x_rcc.d"/>
+        <F N="../V1.0/OBJ/stm32f10x_rcc.o"/>
+        <F N="../V1.0/OBJ/stm32f10x_rtc.crf"/>
+        <F N="../V1.0/OBJ/stm32f10x_rtc.d"/>
+        <F N="../V1.0/OBJ/stm32f10x_rtc.o"/>
+        <F N="../V1.0/OBJ/stm32f10x_spi.crf"/>
+        <F N="../V1.0/OBJ/stm32f10x_spi.d"/>
+        <F N="../V1.0/OBJ/stm32f10x_spi.o"/>
+        <F N="../V1.0/OBJ/stm32f10x_tim.crf"/>
+        <F N="../V1.0/OBJ/stm32f10x_tim.d"/>
+        <F N="../V1.0/OBJ/stm32f10x_tim.o"/>
+        <F N="../V1.0/OBJ/stm32f10x_usart.crf"/>
+        <F N="../V1.0/OBJ/stm32f10x_usart.d"/>
+        <F N="../V1.0/OBJ/stm32f10x_usart.o"/>
+        <F N="../V1.0/OBJ/sys.crf"/>
+        <F N="../V1.0/OBJ/sys.d"/>
+        <F N="../V1.0/OBJ/sys.o"/>
+        <F N="../V1.0/OBJ/system_stm32f10x.crf"/>
+        <F N="../V1.0/OBJ/system_stm32f10x.d"/>
+        <F N="../V1.0/OBJ/system_stm32f10x.o"/>
+        <F N="../V1.0/OBJ/timer.crf"/>
+        <F N="../V1.0/OBJ/timer.d"/>
+        <F N="../V1.0/OBJ/timer.o"/>
+        <F N="../V1.0/OBJ/usart.crf"/>
+        <F N="../V1.0/OBJ/usart.d"/>
+        <F N="../V1.0/OBJ/usart.o"/>
+        <F N="../V1.0/OBJ/w5500.crf"/>
+        <F N="../V1.0/OBJ/w5500.d"/>
+        <F N="../V1.0/OBJ/w5500.o"/>
+        <F N="../V1.0/OBJ/wdg.crf"/>
+        <F N="../V1.0/OBJ/wdg.d"/>
+        <F N="../V1.0/OBJ/wdg.o"/>
+        <F N="../V1.0/OBJ/wizchip_conf.crf"/>
+        <F N="../V1.0/OBJ/wizchip_conf.d"/>
+        <F N="../V1.0/OBJ/wizchip_conf.o"/>
+      </Folder>
+      <Folder Name="RTC">
+        <F N="../V1.0/RTC/rtc.c"/>
+        <F N="../V1.0/RTC/rtc.h"/>
+      </Folder>
+      <Folder Name="STM32F10x_FWLib">
+        <Folder Name="inc">
+          <F N="../V1.0/STM32F10x_FWLib/inc/misc.h"/>
+          <F N="../V1.0/STM32F10x_FWLib/inc/stm32f10x_adc.h"/>
+          <F N="../V1.0/STM32F10x_FWLib/inc/stm32f10x_bkp.h"/>
+          <F N="../V1.0/STM32F10x_FWLib/inc/stm32f10x_can.h"/>
+          <F N="../V1.0/STM32F10x_FWLib/inc/stm32f10x_cec.h"/>
+          <F N="../V1.0/STM32F10x_FWLib/inc/stm32f10x_crc.h"/>
+          <F N="../V1.0/STM32F10x_FWLib/inc/stm32f10x_dac.h"/>
+          <F N="../V1.0/STM32F10x_FWLib/inc/stm32f10x_dbgmcu.h"/>
+          <F N="../V1.0/STM32F10x_FWLib/inc/stm32f10x_dma.h"/>
+          <F N="../V1.0/STM32F10x_FWLib/inc/stm32f10x_exti.h"/>
+          <F N="../V1.0/STM32F10x_FWLib/inc/stm32f10x_flash.h"/>
+          <F N="../V1.0/STM32F10x_FWLib/inc/stm32f10x_fsmc.h"/>
+          <F N="../V1.0/STM32F10x_FWLib/inc/stm32f10x_gpio.h"/>
+          <F N="../V1.0/STM32F10x_FWLib/inc/stm32f10x_i2c.h"/>
+          <F N="../V1.0/STM32F10x_FWLib/inc/stm32f10x_iwdg.h"/>
+          <F N="../V1.0/STM32F10x_FWLib/inc/stm32f10x_pwr.h"/>
+          <F N="../V1.0/STM32F10x_FWLib/inc/stm32f10x_rcc.h"/>
+          <F N="../V1.0/STM32F10x_FWLib/inc/stm32f10x_rtc.h"/>
+          <F N="../V1.0/STM32F10x_FWLib/inc/stm32f10x_sdio.h"/>
+          <F N="../V1.0/STM32F10x_FWLib/inc/stm32f10x_spi.h"/>
+          <F N="../V1.0/STM32F10x_FWLib/inc/stm32f10x_tim.h"/>
+          <F N="../V1.0/STM32F10x_FWLib/inc/stm32f10x_usart.h"/>
+          <F N="../V1.0/STM32F10x_FWLib/inc/stm32f10x_wwdg.h"/>
+        </Folder>
+        <Folder Name="src">
+          <F N="../V1.0/STM32F10x_FWLib/src/misc.c"/>
+          <F N="../V1.0/STM32F10x_FWLib/src/stm32f10x_adc.c"/>
+          <F N="../V1.0/STM32F10x_FWLib/src/stm32f10x_bkp.c"/>
+          <F N="../V1.0/STM32F10x_FWLib/src/stm32f10x_can.c"/>
+          <F N="../V1.0/STM32F10x_FWLib/src/stm32f10x_cec.c"/>
+          <F N="../V1.0/STM32F10x_FWLib/src/stm32f10x_crc.c"/>
+          <F N="../V1.0/STM32F10x_FWLib/src/stm32f10x_dac.c"/>
+          <F N="../V1.0/STM32F10x_FWLib/src/stm32f10x_dbgmcu.c"/>
+          <F N="../V1.0/STM32F10x_FWLib/src/stm32f10x_dma.c"/>
+          <F N="../V1.0/STM32F10x_FWLib/src/stm32f10x_exti.c"/>
+          <F N="../V1.0/STM32F10x_FWLib/src/stm32f10x_flash.c"/>
+          <F N="../V1.0/STM32F10x_FWLib/src/stm32f10x_fsmc.c"/>
+          <F N="../V1.0/STM32F10x_FWLib/src/stm32f10x_gpio.c"/>
+          <F N="../V1.0/STM32F10x_FWLib/src/stm32f10x_i2c.c"/>
+          <F N="../V1.0/STM32F10x_FWLib/src/stm32f10x_iwdg.c"/>
+          <F N="../V1.0/STM32F10x_FWLib/src/stm32f10x_pwr.c"/>
+          <F N="../V1.0/STM32F10x_FWLib/src/stm32f10x_rcc.c"/>
+          <F N="../V1.0/STM32F10x_FWLib/src/stm32f10x_rtc.c"/>
+          <F N="../V1.0/STM32F10x_FWLib/src/stm32f10x_sdio.c"/>
+          <F N="../V1.0/STM32F10x_FWLib/src/stm32f10x_spi.c"/>
+          <F N="../V1.0/STM32F10x_FWLib/src/stm32f10x_tim.c"/>
+          <F N="../V1.0/STM32F10x_FWLib/src/stm32f10x_usart.c"/>
+          <F N="../V1.0/STM32F10x_FWLib/src/stm32f10x_wwdg.c"/>
+        </Folder>
+      </Folder>
+      <Folder Name="SYSTEM">
+        <Folder Name="delay">
+          <F N="../V1.0/SYSTEM/delay/delay.c"/>
+          <F N="../V1.0/SYSTEM/delay/delay.h"/>
+        </Folder>
+        <Folder Name="sys">
+          <F N="../V1.0/SYSTEM/sys/sys.c"/>
+          <F N="../V1.0/SYSTEM/sys/sys.h"/>
+        </Folder>
+        <Folder Name="usart">
+          <F N="../V1.0/SYSTEM/usart/usart.c"/>
+          <F N="../V1.0/SYSTEM/usart/usart.h"/>
+        </Folder>
+      </Folder>
+      <Folder Name="USER">
+        <Folder Name="DebugConfig">
+          <F N="../V1.0/USER/DebugConfig/AD-29_STM32F103ZE_1.0.0.dbgconf"/>
+          <F N="../V1.0/USER/DebugConfig/AD-30_STM32F103VB_1.0.0.dbgconf"/>
+          <F N="../V1.0/USER/DebugConfig/AD-30_STM32F103ZE_1.0.0.dbgconf"/>
+          <F N="../V1.0/USER/DebugConfig/USART_STM32F103CB_1.0.0.dbgconf"/>
+          <F N="../V1.0/USER/DebugConfig/USART_STM32F103ZE_1.0.0.dbgconf"/>
+        </Folder>
+        <Folder Name="inc">
+          <F N="../V1.0/USER/inc/analysis_protocol.h"/>
+          <F N="../V1.0/USER/inc/ananlysis_data.h"/>
+          <F N="../V1.0/USER/inc/ds1302.h"/>
+          <F N="../V1.0/USER/inc/fifo.h"/>
+          <F N="../V1.0/USER/inc/m_w5500_conf.h"/>
+          <F N="../V1.0/USER/inc/prjlib.h"/>
+          <F N="../V1.0/USER/inc/process.h"/>
+          <F N="../V1.0/USER/inc/schedule.h"/>
+          <F N="../V1.0/USER/inc/spi.h"/>
+          <F N="../V1.0/USER/inc/stm32f10x.h"/>
+          <F N="../V1.0/USER/inc/stm32f10x_conf.h"/>
+          <F N="../V1.0/USER/inc/stm32f10x_it.h"/>
+          <F N="../V1.0/USER/inc/system_stm32f10x.h"/>
+          <F N="../V1.0/USER/inc/timer.h"/>
+        </Folder>
+        <Folder Name="src">
+          <F N="../V1.0/USER/src/analysis_protocol.c"/>
+          <F N="../V1.0/USER/src/ananlysis_data.c"/>
+          <F N="../V1.0/USER/src/DS1302.C"/>
+          <F N="../V1.0/USER/src/fifo.c"/>
+          <F N="../V1.0/USER/src/m_w5500_conf.c"/>
+          <F N="../V1.0/USER/src/main.c"/>
+          <F N="../V1.0/USER/src/prjlib.c"/>
+          <F N="../V1.0/USER/src/Process.c"/>
+          <F N="../V1.0/USER/src/schedule.c"/>
+          <F N="../V1.0/USER/src/spi.c"/>
+          <F N="../V1.0/USER/src/stm32f10x_it.c"/>
+          <F N="../V1.0/USER/src/system_stm32f10x.c"/>
+          <F N="../V1.0/USER/src/timer.c"/>
+        </Folder>
+        <F N="../V1.0/USER/AD-30.map"/>
+        <F N="../V1.0/USER/AD-30.uvguix.admin"/>
+        <F N="../V1.0/USER/AD-30.uvguix.wenhuaixiong"/>
+        <F N="../V1.0/USER/AD-30.uvguix.wenzong"/>
+        <F N="../V1.0/USER/AD-30.uvoptx"/>
+        <F N="../V1.0/USER/AD-30.uvprojx"/>
+        <F N="../V1.0/USER/JLinkLog.txt"/>
+        <F N="../V1.0/USER/JLinkSettings.ini"/>
+        <F N="../V1.0/USER/startup_stm32f10x_md.lst"/>
+      </Folder>
+      <F N="../V1.0/keilkilll.bat"/>
+      <F N="../V1.0/README.TXT"/>
+    </Folder>
+  </Files>
+</Project>
