@@ -219,7 +219,7 @@ void MotorSetpperMove(uint32_t xstep, uint32_t zstep) {
             break;
           case motor_start_fast:
             TS_INIT(tsX);
-            plusX--;
+            plusX -= 5;
             if (plusX <= MOTOR_X_FAST_PLUS) {
               plusX = MOTOR_X_FAST_PLUS;
               statusX = motor_fast;
@@ -510,6 +510,8 @@ void GoodsShow(void) {
     osDelay(2);
     ir = IS_IR_DECT(17);
   }
+  // 货舱电机停止
+  CARGO_MOVE_STOP();
 
   // 红外检测到后再运行2秒
   if (ir == 1) {

@@ -313,7 +313,7 @@ void UART_Refresh_Poll(void) {
     pFIFO = &UART_Receive_FIFO_Arrary[i];
     if (pFIFO != NULL) {
       len = FIFO_Length(pFIFO);
-      if ((len >= (pFIFO->sizeMask) && UART_GetDataIdleTicks(i + 1) >= 100)
+      if ((len == (pFIFO->sizeMask + 1) && UART_GetDataIdleTicks(i + 1) >= 100)
           || (FIFO_Length(pFIFO) > 0 && (UART_GetDataIdleTicks(i + 1) >= UART_REFRESH_TICKS))) {
         FIFO_Flush(pFIFO);
         DBG_WAR("UART%u receive fifo overflow.", i + 1);
