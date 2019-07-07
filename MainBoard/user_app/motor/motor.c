@@ -334,52 +334,52 @@ void GoodsPickup(uint8_t index) {
   TS_INIT(ts);
   switch (index) {
     case 1:
-      MOTOR_DC_ACTION(1);
+      MOTOR_DC_ACTION(16);
       break;
     case 2:
-      MOTOR_DC_ACTION(2);
-      break;
-    case 3:
-      MOTOR_DC_ACTION(3);
-      break;
-    case 4:
-      MOTOR_DC_ACTION(4);
-      break;
-    case 5:
-      MOTOR_DC_ACTION(5);
-      break;
-    case 6:
-      MOTOR_DC_ACTION(6);
-      break;
-    case 7:
-      MOTOR_DC_ACTION(7);
-      break;
-    case 8:
-      MOTOR_DC_ACTION(8);
-      break;
-    case 9:
-      MOTOR_DC_ACTION(9);
-      break;
-    case 10:
-      MOTOR_DC_ACTION(10);
-      break;
-    case 11:
-      MOTOR_DC_ACTION(11);
-      break;
-    case 12:
-      MOTOR_DC_ACTION(12);
-      break;
-    case 13:
-      MOTOR_DC_ACTION(13);
-      break;
-    case 14:
-      MOTOR_DC_ACTION(14);
-      break;
-    case 15:
       MOTOR_DC_ACTION(15);
       break;
+    case 3:
+      MOTOR_DC_ACTION(14);
+      break;
+    case 4:
+      MOTOR_DC_ACTION(13);
+      break;
+    case 5:
+      MOTOR_DC_ACTION(12);
+      break;
+    case 6:
+      MOTOR_DC_ACTION(11);
+      break;
+    case 7:
+      MOTOR_DC_ACTION(10);
+      break;
+    case 8:
+      MOTOR_DC_ACTION(9);
+      break;
+    case 9:
+      MOTOR_DC_ACTION(8);
+      break;
+    case 10:
+      MOTOR_DC_ACTION(7);
+      break;
+    case 11:
+      MOTOR_DC_ACTION(6);
+      break;
+    case 12:
+      MOTOR_DC_ACTION(5);
+      break;
+    case 13:
+      MOTOR_DC_ACTION(4);
+      break;
+    case 14:
+      MOTOR_DC_ACTION(3);
+      break;
+    case 15:
+      MOTOR_DC_ACTION(2);
+      break;
     case 16:
-      MOTOR_DC_ACTION(16);
+      MOTOR_DC_ACTION(1);
       break;
     default:
       break;
@@ -398,52 +398,52 @@ void GoodsPickup(uint8_t index) {
   // 停止货道电机
   switch (index) {
     case 1:
-      MOTOR_DC_STOP(1);
+      MOTOR_DC_STOP(16);
       break;
     case 2:
-      MOTOR_DC_STOP(2);
-      break;
-    case 3:
-      MOTOR_DC_STOP(3);
-      break;
-    case 4:
-      MOTOR_DC_STOP(4);
-      break;
-    case 5:
-      MOTOR_DC_STOP(5);
-      break;
-    case 6:
-      MOTOR_DC_STOP(6);
-      break;
-    case 7:
-      MOTOR_DC_STOP(7);
-      break;
-    case 8:
-      MOTOR_DC_STOP(8);
-      break;
-    case 9:
-      MOTOR_DC_STOP(9);
-      break;
-    case 10:
-      MOTOR_DC_STOP(10);
-      break;
-    case 11:
-      MOTOR_DC_STOP(11);
-      break;
-    case 12:
-      MOTOR_DC_STOP(12);
-      break;
-    case 13:
-      MOTOR_DC_STOP(13);
-      break;
-    case 14:
-      MOTOR_DC_STOP(14);
-      break;
-    case 15:
       MOTOR_DC_STOP(15);
       break;
+    case 3:
+      MOTOR_DC_STOP(14);
+      break;
+    case 4:
+      MOTOR_DC_STOP(13);
+      break;
+    case 5:
+      MOTOR_DC_STOP(12);
+      break;
+    case 6:
+      MOTOR_DC_STOP(11);
+      break;
+    case 7:
+      MOTOR_DC_STOP(10);
+      break;
+    case 8:
+      MOTOR_DC_STOP(9);
+      break;
+    case 9:
+      MOTOR_DC_STOP(8);
+      break;
+    case 10:
+      MOTOR_DC_STOP(7);
+      break;
+    case 11:
+      MOTOR_DC_STOP(6);
+      break;
+    case 12:
+      MOTOR_DC_STOP(5);
+      break;
+    case 13:
+      MOTOR_DC_STOP(4);
+      break;
+    case 14:
+      MOTOR_DC_STOP(3);
+      break;
+    case 15:
+      MOTOR_DC_STOP(2);
+      break;
     case 16:
-      MOTOR_DC_STOP(16);
+      MOTOR_DC_STOP(1);
       break;
     default:
       break;
@@ -540,52 +540,52 @@ BOOL GoodsCheck(uint8_t index) {
   TS_INIT(ts);
   switch (index) {
     case 1:
-      MOTOR_DC_ACTION(1);
+      MOTOR_DC_ACTION(16);
       break;
     case 2:
-      MOTOR_DC_ACTION(2);
+      MOTOR_DC_ACTION(15);
       break;
     case 3:
-      MOTOR_DC_ACTION(3);
-      break;
-    case 4:
-      MOTOR_DC_ACTION(4);
-      break;
-    case 5:
-      MOTOR_DC_ACTION(5);
-      break;
-    case 6:
-      MOTOR_DC_ACTION(6);
-      break;
-    case 7:
-      MOTOR_DC_ACTION(7);
-      break;
-    case 8:
-      MOTOR_DC_ACTION(8);
-      break;
-    case 9:
-      MOTOR_DC_ACTION(9);
-      break;
-    case 10:
-      MOTOR_DC_ACTION(10);
-      break;
-    case 11:
-      MOTOR_DC_ACTION(11);
-      break;
-    case 12:
-      MOTOR_DC_ACTION(12);
-      break;
-    case 13:
-      MOTOR_DC_ACTION(13);
-      break;
-    case 14:
       MOTOR_DC_ACTION(14);
       break;
+    case 4:
+      MOTOR_DC_ACTION(13);
+      break;
+    case 5:
+      MOTOR_DC_ACTION(12);
+      break;
+    case 6:
+      MOTOR_DC_ACTION(11);
+      break;
+    case 7:
+      MOTOR_DC_ACTION(10);
+      break;
+    case 8:
+      MOTOR_DC_ACTION(9);
+      break;
+    case 9:
+      MOTOR_DC_ACTION(8);
+      break;
+    case 10:
+      MOTOR_DC_ACTION(7);
+      break;
+    case 11:
+      MOTOR_DC_ACTION(6);
+      break;
+    case 12:
+      MOTOR_DC_ACTION(5);
+      break;
+    case 13:
+      MOTOR_DC_ACTION(4);
+      break;
+    case 14:
+      MOTOR_DC_ACTION(3);
+      break;
     case 15:
-      MOTOR_DC_ACTION(16);
+      MOTOR_DC_ACTION(2);
       break;
     case 16:
-      MOTOR_DC_ACTION(16);
+      MOTOR_DC_ACTION(1);
       break;
     default:
       break;
@@ -598,52 +598,52 @@ BOOL GoodsCheck(uint8_t index) {
     osDelay(2);
     switch (index) {
       case 1:
-        ir = IS_IR_DECT(1);
+        ir = IS_IR_DECT(16);
         break;
       case 2:
-        ir = IS_IR_DECT(2);
-        break;
-      case 3:
-        ir = IS_IR_DECT(3);
-        break;
-      case 4:
-        ir = IS_IR_DECT(4);
-        break;
-      case 5:
-        ir = IS_IR_DECT(5);
-        break;
-      case 6:
-        ir = IS_IR_DECT(6);
-        break;
-      case 7:
-        ir = IS_IR_DECT(7);
-        break;
-      case 8:
-        ir = IS_IR_DECT(8);
-        break;
-      case 9:
-        ir = IS_IR_DECT(9);
-        break;
-      case 10:
-        ir = IS_IR_DECT(10);
-        break;
-      case 11:
-        ir = IS_IR_DECT(11);
-        break;
-      case 12:
-        ir = IS_IR_DECT(12);
-        break;
-      case 13:
-        ir = IS_IR_DECT(13);
-        break;
-      case 14:
-        ir = IS_IR_DECT(14);
-        break;
-      case 15:
         ir = IS_IR_DECT(15);
         break;
+      case 3:
+        ir = IS_IR_DECT(14);
+        break;
+      case 4:
+        ir = IS_IR_DECT(13);
+        break;
+      case 5:
+        ir = IS_IR_DECT(12);
+        break;
+      case 6:
+        ir = IS_IR_DECT(11);
+        break;
+      case 7:
+        ir = IS_IR_DECT(10);
+        break;
+      case 8:
+        ir = IS_IR_DECT(9);
+        break;
+      case 9:
+        ir = IS_IR_DECT(8);
+        break;
+      case 10:
+        ir = IS_IR_DECT(7);
+        break;
+      case 11:
+        ir = IS_IR_DECT(6);
+        break;
+      case 12:
+        ir = IS_IR_DECT(5);
+        break;
+      case 13:
+        ir = IS_IR_DECT(4);
+        break;
+      case 14:
+        ir = IS_IR_DECT(3);
+        break;
+      case 15:
+        ir = IS_IR_DECT(2);
+        break;
       case 16:
-        ir = IS_IR_DECT(16);
+        ir = IS_IR_DECT(1);
         break;
       default:
         break;
@@ -725,7 +725,7 @@ static void motor_Console(int argc, char* argv[]) {
     j = uatoi(argv[2]);
     MotorSetpperMove(i, j);
     DBG_LOG("motor X move:%d, Z move:%d.", i, j);
-  } else if (ARGV_EQUAL("reset ")) {
+  } else if (ARGV_EQUAL("reset")) {
     DBG_LOG("setpeer motor reset beginning.");
     MotorSetpeerReset();
     DBG_LOG("setpeer motor reset complite..");
@@ -749,6 +749,26 @@ static void motor_Console(int argc, char* argv[]) {
       GoodsShow();
       DBG_LOG("rooad%d check result:d", GoodsCheck(i));
     }
+  } 
+  // test
+  else if (ARGV_EQUAL("gap_door_up")) {   // gap_door_up
+      DBG_LOG("gap_door_up");
+      DOOR_MOVE_FORWARD();   
+  } else if (ARGV_EQUAL("gap_door_down")) {   // gap_door_down
+      DBG_LOG("gap_door_down");
+      DOOR_MOVE_REVERSE();   
+  } else if (ARGV_EQUAL("gap_door_stop")) {   // gap_door_stop
+      DBG_LOG("gap_door_stop");
+      DOOR_MOVE_STOP();   
+  } else if (ARGV_EQUAL("cargo_motor_in")) {   // cargo_motor_in
+      DBG_LOG("cargo_motor_in");
+      CARGO_MOVE_FORWARD();
+  } else if (ARGV_EQUAL("cargo_motor_out")) {   // cargo_motor_out
+      DBG_LOG("cargo_motor_out");
+      CARGO_MOVE_REVERSE();
+  } else if (ARGV_EQUAL("cargo_motor_stop")) {   // cargo_motor_stop
+      DBG_LOG("cargo_motor_stop");
+      CARGO_MOVE_STOP();
   }
 }
 

@@ -52,14 +52,14 @@ extern "C"
 #define IS_IR_DECT(x)         (IO_READ(DEM##x) == 0)
 
 // 货舱电机正反转
-#define DOOR_MOVE_FORWARD() do {IO_H(MOTOR_R1); IO_L(MOTOR_L1);} while (0)
-#define DOOR_MOVE_REVERSE() do {IO_H(MOTOR_L1); IO_L(MOTOR_R1);} while (0)
-#define DOOR_MOVE_STOP()    do {IO_L(MOTOR_L1); IO_L(MOTOR_R1);} while (0)
+#define DOOR_MOVE_FORWARD() do {IO_H(MOTOR_L2); IO_L(MOTOR_R2);} while (0) 
+#define DOOR_MOVE_REVERSE() do {IO_H(MOTOR_R2); IO_L(MOTOR_L2);} while (0)
+#define DOOR_MOVE_STOP()    do {IO_L(MOTOR_L2); IO_L(MOTOR_R2);} while (0)
 
 // 舱门电机正反转
-#define CARGO_MOVE_FORWARD() do {IO_H(MOTOR_L2); IO_L(MOTOR_R2);} while (0)
-#define CARGO_MOVE_REVERSE() do {IO_H(MOTOR_R2); IO_L(MOTOR_L2);} while (0)
-#define CARGO_MOVE_STOP()    do {IO_L(MOTOR_L2); IO_L(MOTOR_R2);} while (0)
+#define CARGO_MOVE_FORWARD() do {IO_H(MOTOR_R1); IO_L(MOTOR_L1);} while (0)
+#define CARGO_MOVE_REVERSE() do {IO_H(MOTOR_L1); IO_L(MOTOR_R1);} while (0)
+#define CARGO_MOVE_STOP()    do {IO_L(MOTOR_L1); IO_L(MOTOR_R1);} while (0) 
 
 // X轴与Z轴步进电机使能
 #define MOTOR_Z_ENABLE(en)  IO_L(EN1)
