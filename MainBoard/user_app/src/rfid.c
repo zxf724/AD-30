@@ -29,10 +29,10 @@
 BOOL ReadRFID(uint32_t* id) {
   uint8_t * pbuf = NULL,*p;
   uint16_t len = 0;
-  BOOL ret = TRUE;
+  BOOL ret = FALSE;
 
   len = UART_DataSize(RFID_UART_PORT);
-  if (len > 0 && UART_GetDataIdleTicks(RFID_UART_PORT) > 100) {
+  if (len > 9) {
     pbuf = MMEMORY_ALLOC(len);
     if (pbuf != NULL) {
       UART_ReadData(RFID_UART_PORT, pbuf, len);
@@ -43,7 +43,7 @@ BOOL ReadRFID(uint32_t* id) {
         len--;
       }
       // 读到卡
-      if (len >= 9 && *(p + 2) == 0x12) {
+      if (len >= 9 && *(p + 3) == 0x12) {
         *id = *((uint32_t*)p + 4);
         ret = TRUE;
         DBG_LOG("read RFID:%#x", *id);

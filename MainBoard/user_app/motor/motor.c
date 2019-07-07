@@ -211,32 +211,28 @@ void MotorSetpperMove(uint32_t xstep, uint32_t zstep) {
         switch (statusX) {
           case motor_start:
             plusX = MOTOR_X_START_PLUS;
-            // 100ms后开始加速
-            if (TS_IS_OVER(tsX, 100)) {
+            // 80ms后开始加速
+            if (TS_IS_OVER(tsX, 80)) {
               TS_INIT(tsX);
               statusX = motor_start_fast;
             }
             break;
           case motor_start_fast:
-            if (TS_IS_OVER(tsX, MOTOR_X_SPEED_CHANGE_TIME)) {
-              TS_INIT(tsX);
-              plusX--;
-              if (plusX <= MOTOR_X_FAST_PLUS) {
-                plusX = MOTOR_X_FAST_PLUS;
-                statusX = motor_fast;
-              }
+            TS_INIT(tsX);
+            plusX--;
+            if (plusX <= MOTOR_X_FAST_PLUS) {
+              plusX = MOTOR_X_FAST_PLUS;
+              statusX = motor_fast;
             }
             break;
           case motor_fast:
             break;
           case motor_slowdown:
-            if (TS_IS_OVER(tsX, MOTOR_X_SPEED_CHANGE_TIME)) {
-              TS_INIT(tsX);
-              plusX++;
-              if (plusX >= MOTOR_X_START_PLUS) {
-                plusX = MOTOR_X_START_PLUS;
-                statusX = motor_slow;
-              }
+            TS_INIT(tsX);
+            plusX++;
+            if (plusX >= MOTOR_X_START_PLUS) {
+              plusX = MOTOR_X_START_PLUS;
+              statusX = motor_slow;
             }
             break;
           case motor_slow:
@@ -499,18 +495,22 @@ void GoodsShow(void) {
 
   DBG_LOG("goods show door move used time:%dms", TS_COUNT(tspick));
 
-  // 货舱运行至回收货道的坐标
+  // 货舱运行至回流货道的坐标
   MotorMoveTo(gs_backup_pos[0], gs_backup_pos[1]);
   DBG_LOG("goods recover move used time:%dms", TS_COUNT(tspick));
 
   // 回流货道启动回收货物
   MOTOR_DC_ACTION(17);
+
+  // 货舱电机反转
+  CARGO_MOVE_REVERSE();
   ir = 0;
   TS_INIT(ts);
   while (ir == 0 && !TS_IS_OVER(ts, DC_MOTOR_MOVE_TIME_MAX)) {
     osDelay(2);
     ir = IS_IR_DECT(17);
   }
+
   // 红外检测到后再运行2秒
   if (ir == 1) {
     osDelay(2000);
@@ -649,6 +649,63 @@ BOOL GoodsCheck(uint8_t index) {
         break;
     }
   }
+
+  // 关闭货道电机
+  TS_INIT(ts);
+  switch (index) {
+    case 1:
+      MOTOR_DC_STOP(16);
+      break;
+    case 2:
+      MOTOR_DC_STOP(15);
+      break;
+    case 3:
+      MOTOR_DC_STOP(14);
+      break;
+    case 4:
+      MOTOR_DC_STOP(13);
+      break;
+    case 5:
+      MOTOR_DC_STOP(12);
+      break;
+    case 6:
+      MOTOR_DC_STOP(11);
+      break;
+    case 7:
+      MOTOR_DC_STOP(10);
+      break;
+    case 8:
+      MOTOR_DC_STOP(9);
+      break;
+    case 9:
+      MOTOR_DC_STOP(8);
+      break;
+    case 10:
+      MOTOR_DC_STOP(7);
+      break;
+    case 11:
+      MOTOR_DC_STOP(6);
+      break;
+    case 12:
+      MOTOR_DC_STOP(5);
+      break;
+    case 13:
+      MOTOR_DC_STOP(4);
+      break;
+    case 14:
+      MOTOR_DC_STOP(3);
+      break;
+    case 15:
+      MOTOR_DC_STOP(2);
+      break;
+    case 16:
+      MOTOR_DC_STOP(1);
+      break;
+    default:
+      break;
+  }
+
+
   DBG_LOG("goods check used time:%dms, return:%d", TS_COUNT(tspick), ir);
 
   return (BOOL)ir;
@@ -749,26 +806,26 @@ static void motor_Console(int argc, char* argv[]) {
       GoodsShow();
       DBG_LOG("rooad%d check result:d", GoodsCheck(i));
     }
-  } 
+  }
   // test
   else if (ARGV_EQUAL("gap_door_up")) {   // gap_door_up
-      DBG_LOG("gap_door_up");
-      DOOR_MOVE_FORWARD();   
+    DBG_LOG("gap_door_up");
+    DOOR_MOVE_FORWARD();
   } else if (ARGV_EQUAL("gap_door_down")) {   // gap_door_down
-      DBG_LOG("gap_door_down");
-      DOOR_MOVE_REVERSE();   
+    DBG_LOG("gap_door_down");
+    DOOR_MOVE_REVERSE();
   } else if (ARGV_EQUAL("gap_door_stop")) {   // gap_door_stop
-      DBG_LOG("gap_door_stop");
-      DOOR_MOVE_STOP();   
+    DBG_LOG("gap_door_stop");
+    DOOR_MOVE_STOP();
   } else if (ARGV_EQUAL("cargo_motor_in")) {   // cargo_motor_in
-      DBG_LOG("cargo_motor_in");
-      CARGO_MOVE_FORWARD();
+    DBG_LOG("cargo_motor_in");
+    CARGO_MOVE_FORWARD();
   } else if (ARGV_EQUAL("cargo_motor_out")) {   // cargo_motor_out
-      DBG_LOG("cargo_motor_out");
-      CARGO_MOVE_REVERSE();
+    DBG_LOG("cargo_motor_out");
+    CARGO_MOVE_REVERSE();
   } else if (ARGV_EQUAL("cargo_motor_stop")) {   // cargo_motor_stop
-      DBG_LOG("cargo_motor_stop");
-      CARGO_MOVE_STOP();
+    DBG_LOG("cargo_motor_stop");
+    CARGO_MOVE_STOP();
   }
 }
 
