@@ -90,6 +90,7 @@ void MotorSetpeerReset(void) {
       } else {
         IO_H(PUL2);
         xrst = TRUE;
+        DBG_LOG("X reset OK.");
       }
     }
 
@@ -103,6 +104,7 @@ void MotorSetpeerReset(void) {
       } else {
         IO_H(PUL1);
         zrst = TRUE;
+        DBG_LOG("Z reset OK.");
       }
     }
 
@@ -219,7 +221,7 @@ void MotorSetpperMove(uint32_t xstep, uint32_t zstep) {
             break;
           case motor_start_fast:
             TS_INIT(tsX);
-            plusX -= 5;
+            plusX -= 2;
             if (plusX <= MOTOR_X_FAST_PLUS) {
               plusX = MOTOR_X_FAST_PLUS;
               statusX = motor_fast;
@@ -260,8 +262,8 @@ void MotorSetpperMove(uint32_t xstep, uint32_t zstep) {
         switch (statusZ) {
           case motor_start:
             plusZ = MOTOR_Z_START_PLUS;
-            // 200ms后开始加速
-            if (TS_IS_OVER(tsZ, 200)) {
+            // 100ms后开始加速
+            if (TS_IS_OVER(tsZ, 100)) {
               statusZ = motor_start_fast;
               TS_INIT(tsZ);
             }

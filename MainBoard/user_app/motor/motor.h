@@ -29,7 +29,7 @@ extern "C"
 #define MOTOR_Z_START_PLUS               500
 
 // 步进电机高速运转时的脉宽
-#define MOTOR_X_FAST_PLUS                400
+#define MOTOR_X_FAST_PLUS                300
 #define MOTOR_Z_FAST_PLUS                16
 
 // 步进电机调速间隔的时间
