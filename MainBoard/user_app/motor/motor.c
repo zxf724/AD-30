@@ -478,7 +478,7 @@ void GoodsShow(void) {
   DOOR_MOVE_FORWARD();
   while (ir == 0 && !TS_IS_OVER(ts, DOOR_MOTOR_MOVE_TIME_MAX)) {
     osDelay(2);
-    ir = IS_IR_DECT(20);
+    ir = IS_IR_DECT(21);
   }
   DOOR_MOVE_STOP();
 
@@ -491,7 +491,7 @@ void GoodsShow(void) {
   DOOR_MOVE_REVERSE();
   while (ir == 0 && !TS_IS_OVER(ts, DOOR_MOTOR_MOVE_TIME_MAX)) {
     osDelay(2);
-    ir = IS_IR_DECT(21);
+    ir = IS_IR_DECT(20);
   }
   DOOR_MOVE_STOP();
 
@@ -802,7 +802,7 @@ static void motor_Console(int argc, char* argv[]) {
   } else if (ARGV_EQUAL("moveshow")) {
     DBG_LOG("move to show position.");
     MotorMoveTo(gs_show_pos[0], gs_show_pos[1]);
-  } else if (ARGV_EQUAL("test")) {
+  } else if (ARGV_EQUAL("test")) {    // test
     i = uatoi(argv[1]);
     DBG_LOG("pickup goods road:%d", i);
     if (i > 0 && i <= 16) {
@@ -814,10 +814,10 @@ static void motor_Console(int argc, char* argv[]) {
   // test
   else if (ARGV_EQUAL("gap_door_up")) {   // gap_door_up
     DBG_LOG("gap_door_up");
-    DOOR_MOVE_FORWARD();
+    DOOR_MOVE_REVERSE();
   } else if (ARGV_EQUAL("gap_door_down")) {   // gap_door_down
     DBG_LOG("gap_door_down");
-    DOOR_MOVE_REVERSE();
+    DOOR_MOVE_FORWARD();
   } else if (ARGV_EQUAL("gap_door_stop")) {   // gap_door_stop
     DBG_LOG("gap_door_stop");
     DOOR_MOVE_STOP();

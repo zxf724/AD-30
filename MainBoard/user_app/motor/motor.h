@@ -19,8 +19,8 @@ extern "C"
 /* Exported typedef ----------------------------------------------------------*/
 /* Exported define -----------------------------------------------------------*/
 #define DC_MOTOR_MOVE_TIME_MAX           10000
-#define CARGO_MOTOR_MOVE_TIME_MAX        3000
-#define DOOR_MOTOR_MOVE_TIME_MAX         3000
+#define CARGO_MOTOR_MOVE_TIME_MAX        5000
+#define DOOR_MOTOR_MOVE_TIME_MAX         5000
 
 #define MOTOR_RESET_TIME_MAX             35000
 
@@ -52,8 +52,8 @@ extern "C"
 #define IS_IR_DECT(x)         (IO_READ(DEM##x) == 0)
 
 // 货舱电机正反转
-#define DOOR_MOVE_FORWARD() do {IO_H(MOTOR_L2); IO_L(MOTOR_R2);} while (0)
-#define DOOR_MOVE_REVERSE() do {IO_H(MOTOR_R2); IO_L(MOTOR_L2);} while (0)
+#define DOOR_MOVE_FORWARD() do {IO_H(MOTOR_R2); IO_L(MOTOR_L2);} while (0)
+#define DOOR_MOVE_REVERSE() do {IO_H(MOTOR_L2); IO_L(MOTOR_R2);} while (0)
 #define DOOR_MOVE_STOP()    do {IO_L(MOTOR_L2); IO_L(MOTOR_R2);} while (0)
 
 // 舱门电机正反转
