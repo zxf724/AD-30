@@ -33,14 +33,14 @@ static uint32_t gs_x_pos = 0, gs_z_pos = 0;
 
 // 定义各货道
 static uint32_t gs_road_pos[16][2] = {
-  { 2055, 61790 }, { 1380, 61790 }, { 705, 61790 }, { 30, 61790 },
-  { 2055, 45960 }, { 1380, 45960 }, { 705, 45960 }, { 30, 45960 },
-  { 2055, 30130 }, { 1380, 30130 }, { 705, 30130 }, { 30, 30130 },
-  { 2055, 14300 }, { 1380, 14300 }, { 705, 14300 }, { 30, 14300 },
+  { 2055, 61840 }, { 1380, 61840 }, { 705, 61640 }, { 50, 61640 },
+  { 2055, 46010 }, { 1380, 46010 }, { 705, 46010 }, { 30, 46010 },
+  { 2055, 30180 }, { 1380, 30180 }, { 705, 30180 }, { 30, 30180 },
+  { 2055, 14350 }, { 1380, 14350 }, { 705, 14350 }, { 30, 14350 },
 };
 
-static uint32_t gs_backup_pos[2] = { 30, 0 };
-static uint32_t gs_show_pos[2] = { 1042, 30000 };
+static uint32_t gs_backup_pos[2] = { 5, 0 };
+static uint32_t gs_show_pos[2] = { 1042, 20000 };
 
 /* Private function prototypes -----------------------------------------------*/
 static void MotorDelayUs(uint32_t us);
@@ -221,7 +221,7 @@ void MotorSetpperMove(uint32_t xstep, uint32_t zstep) {
             break;
           case motor_start_fast:
             TS_INIT(tsX);
-            plusX -= 2;
+            plusX -= 5;
             if (plusX <= MOTOR_X_FAST_PLUS) {
               plusX = MOTOR_X_FAST_PLUS;
               statusX = motor_fast;
@@ -231,7 +231,7 @@ void MotorSetpperMove(uint32_t xstep, uint32_t zstep) {
             break;
           case motor_slowdown:
             TS_INIT(tsX);
-            plusX++;
+            plusX += 5;
             if (plusX >= MOTOR_X_START_PLUS) {
               plusX = MOTOR_X_START_PLUS;
               statusX = motor_slow;
@@ -508,10 +508,12 @@ void GoodsShow(void) {
   CARGO_MOVE_REVERSE();
   ir = 0;
   TS_INIT(ts);
-  while (ir == 0 && !TS_IS_OVER(ts, DC_MOTOR_MOVE_TIME_MAX)) {
+  while (ir == 0 && !TS_IS_OVER(ts, DC_MOTOR_MOVE_TIME_MAX)) {   // 出错处理，会导致卡住
     osDelay(2);
     ir = IS_IR_DECT(17);
   }
+  //十秒后检查RFID，如果没有检测到则货道反转
+  
   // 货舱电机停止
   CARGO_MOVE_STOP();
 
@@ -830,6 +832,10 @@ static void motor_Console(int argc, char* argv[]) {
   } else if (ARGV_EQUAL("cargo_motor_stop")) {   // cargo_motor_stop
     DBG_LOG("cargo_motor_stop");
     CARGO_MOVE_STOP();
+  } else if (ARGV_EQUAL("hight_test")) {   // hight_test
+    DBG_LOG("hight_test");
+    MOTOR_DC_ACTION(2);
+    CARGO_MOVE_FORWARD();
   }
 }
 
