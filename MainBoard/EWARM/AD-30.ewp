@@ -1124,6 +1124,9 @@
   </group>
   <group>
     <name>MQTT</name>
+    <excluded>
+      <configuration>AD-30</configuration>
+    </excluded>
     <group>
       <name>pcaket</name>
       <file>
@@ -1200,16 +1203,10 @@
       <name>$PROJ_DIR$\..\user_app\src\http.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\user_app\src\MQTT_Conn.c</name>
-    </file>
-    <file>
       <name>$PROJ_DIR$\..\user_app\src\prjlib.c</name>
     </file>
     <file>
       <name>$PROJ_DIR$\..\user_app\src\protocol.c</name>
-      <excluded>
-        <configuration>AD-30</configuration>
-      </excluded>
     </file>
     <file>
       <name>$PROJ_DIR$\..\user_app\src\rfid.c</name>
@@ -1222,6 +1219,9 @@
     </file>
     <file>
       <name>$PROJ_DIR$\..\user_app\src\system.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\user_app\src\TCP_Conn.c</name>
     </file>
     <file>
       <name>$PROJ_DIR$\..\user_app\src\uart.c</name>

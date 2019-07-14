@@ -333,9 +333,9 @@ void LED_FlashPoll(void)
     /*网络状态指示灯*/
     if (TS_IS_OVER(tsNET, 20)) {
         TS_INIT(tsNET);
-        if (MQTT_IsDataFlow() > 0) {
+        if (TCP_IsDataFlow() > 0) {
             LED_TOGGLE(NET);
-        } else if (MQTT_IsConnected()) {
+        } else if (TCP_IsConnected()) {
             LED_ON(NET);
         } else {
             LED_OFF(NET);

@@ -551,7 +551,8 @@ void StartDefaultTask(void const* argument) {
 
   MotorControlInit();
   w5500_Init(&hspi2);
-  MQTT_Conn_Init();
+  TCP_Conn_Init();
+  ProtocolInit();
 
   DBG_LOG("System Start, system version:%s.", VERSION);
   TWDT_CLEAR(startTask);

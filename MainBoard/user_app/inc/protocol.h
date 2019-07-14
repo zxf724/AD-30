@@ -22,6 +22,9 @@ extern "C" {
 /* External variables --------------------------------------------------------*/
 /* External functions --------------------------------------------------------*/
 
+void ProtocolInit(void);
+BOOL CMD_Updata(char *cmd, cJSON *desired);
+
 #ifdef __cplusplus
 }
 #endif

@@ -749,6 +749,7 @@
           <F N="../EWARM/AD-30/Obj/AD-30.pbd"/>
           <F N="../EWARM/AD-30/Obj/AD-30.pbd.browse"/>
           <F N="../EWARM/AD-30/Obj/AD-30.pbd.linf"/>
+          <F N="../EWARM/AD-30/Obj/AD-30.pbd.tmp"/>
           <F N="../EWARM/AD-30/Obj/cJSON.o"/>
           <F N="../EWARM/AD-30/Obj/cJSON.pbi"/>
           <F N="../EWARM/AD-30/Obj/cJSON.pbi.xcl"/>
@@ -845,9 +846,15 @@
           <F N="../EWARM/AD-30/Obj/prjlib.o"/>
           <F N="../EWARM/AD-30/Obj/prjlib.pbi"/>
           <F N="../EWARM/AD-30/Obj/prjlib.pbi.xcl"/>
+          <F N="../EWARM/AD-30/Obj/protocol.o"/>
+          <F N="../EWARM/AD-30/Obj/protocol.pbi"/>
+          <F N="../EWARM/AD-30/Obj/protocol.pbi.xcl"/>
           <F N="../EWARM/AD-30/Obj/queue.o"/>
           <F N="../EWARM/AD-30/Obj/queue.pbi"/>
           <F N="../EWARM/AD-30/Obj/queue.pbi.xcl"/>
+          <F N="../EWARM/AD-30/Obj/rfid.o"/>
+          <F N="../EWARM/AD-30/Obj/rfid.pbi"/>
+          <F N="../EWARM/AD-30/Obj/rfid.pbi.xcl"/>
           <F N="../EWARM/AD-30/Obj/rtc_ext.o"/>
           <F N="../EWARM/AD-30/Obj/rtc_ext.pbi"/>
           <F N="../EWARM/AD-30/Obj/rtc_ext.pbi.xcl"/>
@@ -1159,13 +1166,13 @@
         <F N="../user_app/inc/datasave.h"/>
         <F N="../user_app/inc/dfu.h"/>
         <F N="../user_app/inc/http.h"/>
-        <F N="../user_app/inc/mqtt_conn.h"/>
         <F N="../user_app/inc/prjlib.h"/>
         <F N="../user_app/inc/protocol.h"/>
         <F N="../user_app/inc/rfid.h"/>
         <F N="../user_app/inc/rtc_ext.h"/>
         <F N="../user_app/inc/spi_flash.h"/>
         <F N="../user_app/inc/system.h"/>
+        <F N="../user_app/inc/TCP_conn.h"/>
         <F N="../user_app/inc/uart.h"/>
         <F N="../user_app/inc/user_comm.h"/>
       </Folder>
@@ -1178,13 +1185,13 @@
         <F N="../user_app/src/DataSave.c"/>
         <F N="../user_app/src/dfu.c"/>
         <F N="../user_app/src/http.c"/>
-        <F N="../user_app/src/MQTT_Conn.c"/>
         <F N="../user_app/src/prjlib.c"/>
         <F N="../user_app/src/protocol.c"/>
         <F N="../user_app/src/rfid.c"/>
         <F N="../user_app/src/rtc_ext.c"/>
         <F N="../user_app/src/spi_flash.c"/>
         <F N="../user_app/src/system.c"/>
+        <F N="../user_app/src/TCP_Conn.c"/>
         <F N="../user_app/src/uart.c"/>
       </Folder>
     </Folder>

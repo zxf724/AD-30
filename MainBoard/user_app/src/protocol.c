@@ -8,6 +8,8 @@
  */
 
 /* Includes ------------------------------------------------------------------*/
+#include "user_comm.h"
+
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
 /* Private constants ---------------------------------------------------------*/
@@ -15,71 +17,131 @@
 /* Private variables ---------------------------------------------------------*/
 /* External variables --------------------------------------------------------*/
 /* Private function prototypes -----------------------------------------------*/
+static void ArrivePath(uint8_t* dat, uint16_t len);
+static BOOL CMD_Confirm_Rsp(char* ordermsgid);
+
 /* External functions --------------------------------------------------------*/
 
+/**
+ * 协议处理初始化
+ */
+void ProtocolInit(void) {
+
+  TCP_SetArrived(ArrivePath);
+
+  DBG_LOG("protocol init.");
+}
+
+/**
+ * 上传命令
+ *
+ * @param cmd     命令字
+ * @param desired 消息内容
+ *
+ * @return 发送成功返回TRUE
+ */
+BOOL CMD_Updata(char* cmd, cJSON* desired) {
+  BOOL ret = FALSE;
+  char* s = NULL;
+
+  cJSON* root = NULL;
+
+  root = cJSON_CreateObject();
+  if (root != NULL) {
+    cJSON_AddNumberToObject(root, "messageid", HAL_GetTick());
+    cJSON_AddNumberToObject(root, "timestamp", RTC_ReadTick());
+    cJSON_AddStringToObject(root, "cmd", cmd);
+    cJSON_AddStringToObject(root, "deviceid", WorkParam.mqtt.MQTT_ClientID);
+    cJSON_AddItemToObjectCS(root, "desired", desired);
+
+    s = cJSON_PrintUnformatted(root);
+    if (s != NULL) {
+      DBG_LOG("CMD_Updata ts:%u,data:%s", HAL_GetTick(), s);
+
+      if (TCP_SendData((uint8_t*)s, strlen(s))) {
+        ret = TRUE;
+      }
+      MMEMORY_FREE(s);
+    }
+    cJSON_Delete(root);
+  }
+  return ret;
+}
+
+/* Private functions ---------------------------------------------------------*/
+
+/**
+ * 消息处理
+ *
+ * @param dat
+ * @param len
+ */
 void ArrivePath(uint8_t* dat, uint16_t len) {
-  static cJSON* timestamp;
-  static cJSON* root = NULL, *cmd = NULL, *messageid = NULL, *heartbeat = NULL, *port = NULL;
+  char recmsgid[32] = { 0 };
+  cJSON* root = NULL, *timestamp = NULL, *msgid = NULL, *cmd = NULL, *desired = NULL, *deviceid = NULL;
+
+  *(dat + len) = 0;
+  DBG_INFO("ArrivePath ts:%u,data:%s", HAL_GetTick(), dat);
+
   root = cJSON_Parse((const char*)dat);
   if (root != NULL) {
-    timestamp = cJSON_GetObjectItem(root, "timestamp");
-    if (timestamp != NULL && timestamp->type == cJSON_Number) {
-      printf("this times tamp\r\n");
-    }
-    messageid = cJSON_GetObjectItem(root, "messageid");
-    cmd = cJSON_GetObjectItem(root, "cmd");
-    if (cmd != NULL && messageid != NULL && messageid->type == cJSON_String) {
-      if (strstr(cmd->valuestring, "CMD-01")) {
-        DBG_LOG("Resert");
-        while (1);
-      } else if (strstr(cmd->valuestring, "CMD-02")) {
-        cJSON* desired = cJSON_GetObjectItem(root, "desired");
-        if (desired && desired->type == cJSON_Object) {
-          cJSON* ip = cJSON_GetObjectItem(desired, "ip");
-          if (ip != NULL && ip->type == cJSON_String) {
-            Get_NewIP(ip);
-          }
-          port = cJSON_GetObjectItem(desired, "port");
-          if (port != NULL && port->type == cJSON_Number) {
-            DBG_LOG("Set port ...");
-            machineDef.netcon.tcp_port = port->valueint;
-            DBG_LOG("port is %d", machineDef.netcon.tcp_port);
-          }
-          heartbeat = cJSON_GetObjectItem(desired, "heartbeat");
-          if (heartbeat != NULL && heartbeat->type == cJSON_String) {
-            DBG_LOG("Set heartbeat...");
-            machineDef.netcon.ischange = 1;
-            disconnect(machineDef.netcon.tcp_socket);
-            Json_Pack((char*)CmdRecBuf, "CMD-99", GENEAL);
-          }
+    msgid = cJSON_GetObjectItem(root, "messageid");
+
+    // 判断设备ID一致
+    deviceid = cJSON_GetObjectItem(root, "deviceid");
+    if (msgid != NULL && msgid->type == cJSON_String &&
+        deviceid != NULL && (strcmp(deviceid->valuestring, WorkParam.mqtt.MQTT_ClientID) == 0)) {
+      strcpy(recmsgid, msgid->valuestring);
+      timestamp = cJSON_GetObjectItem(root, "timestamp");
+      desired = cJSON_GetObjectItem(root, "desired");
+      cmd = cJSON_GetObjectItem(root, "cmd");
+
+      /*RTC校时*/
+      if (timestamp != NULL && timestamp->type == cJSON_String) {
+        timeRTC_t time;
+
+        RTC_TickToTime(uatoi(timestamp->valuestring), &time);
+        RTC_SetTime(&time);
+      }
+      // 消息处理
+      if (desired != NULL && cmd != NULL) {
+        // 系统复位
+        if (strcmp(cmd->valuestring, "CMD-01") == 0) {
+          NVIC_SystemReset();
         }
-      } else if (strstr(cmd->valuestring, "CMD-03")) {
-        cJSON* desired = cJSON_GetObjectItem(root, "desired");
-        if (desired && desired->type == cJSON_Object) {
-          cJSON* cargoway = cJSON_GetObjectItem(desired, "cargoway");
-          if (cargoway != NULL && cargoway->type == cJSON_Number) {
-            Get_Mote_Data(cargoway->valueint);
-          } else
-            printf("Error before: [%s]\n", cJSON_GetErrorPtr());
-        }
-      } else if (strstr(cmd->valuestring, "CMD-04")) {
-        cJSON* desired = cJSON_GetObjectItem(root, "desired");
-        if (desired && desired->type == cJSON_Object) {
-          cJSON* inquiry  = cJSON_GetObjectItem(desired, "inquiry ");
-          if (inquiry  != NULL && inquiry->type == cJSON_String) {
-            DBG_LOG("inquiry =  %s", inquiry->string);
-            Json_Pack((char*)CmdRecBuf, "CMD-99", PARAMETE_REPORT);
-          }
-        }
+        // TODO 添加剩余的消息处理
       }
     }
     cJSON_Delete(root);
-  } else {
-    printf("Error before: [%s]\n", cJSON_GetErrorPtr());
+
+
+  }
+  // 消息应答
+  if (recmsgid[0] != '0') {
+    CMD_Confirm_Rsp(recmsgid);
   }
 }
 
 
-/* Private functions ---------------------------------------------------------*/
+/**
+ * 上传数据
+ *
+ * @param cmd        上传的命令
+ * @param ordermsgid 上行的消息ID
+ * @return 返回上传结果
+ */
+static BOOL CMD_Confirm_Rsp(char* ordermsgid) {
+  BOOL r = FALSE;
 
+  cJSON* bodydesired;
+
+  bodydesired = cJSON_CreateObject();
+  if (bodydesired != NULL) {
+    cJSON_AddStringToObject(bodydesired, "messageid", ordermsgid);
+    cJSON_AddStringToObject(bodydesired, "ret", "OK");
+
+    r = CMD_Updata("CMD-99", bodydesired);
+  }
+  return r;
+}
 

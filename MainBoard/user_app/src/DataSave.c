@@ -90,9 +90,6 @@ void WorkParam_Init(void) {
     strcpy(WorkParam.mqtt.MQTT_UserName, MQTT_USER_DEF);
     strcpy(WorkParam.mqtt.MQTT_UserPWD, MQTT_PWD_DEF);
 
-    WorkParam.mqtt.MQTT_Timout = MQTT_TIMEOUT_DEF;
-    WorkParam.mqtt.MQTT_PingInvt = MQTT_PING_INVT_DEF;
-
   }
   WorkParam_Save();
 }

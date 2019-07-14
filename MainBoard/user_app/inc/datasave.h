@@ -28,7 +28,6 @@
 
 #define LOG_SAVE_BLOCK_SIZE         64
 
-
 /* Exported types ------------------------------------------------------------*/
 /*MQTT连接参数*/
 typedef struct

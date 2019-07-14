@@ -36,7 +36,8 @@
 #include "w5500_comm.h"
 
 #include "cjson.h"
-#include "mqtt_conn.h"
+#include "tcp_conn.h"
+#include "protocol.h"
 #include "datasave.h"
 
 #include "motor.h"
