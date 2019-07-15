@@ -24,6 +24,11 @@ extern "C" {
 
 void ProtocolInit(void);
 BOOL CMD_Updata(char *cmd, cJSON *desired);
+void Get_NewIP(cJSON* ip);
+static BOOL CMD_Confirm_Rsp(char *ordermsgid);
+void Get_Mote_Data(uint8_t data);
+void return_all_parameter(void);
+
 
 #ifdef __cplusplus
 }

@@ -141,6 +141,7 @@ static void Manager_TCP(void) {
     flowcnt = 0;
   }
 
+
   /*网络类型变化或者掉线时重新登陆*/
   path = System_SockIsConnected(&addr, &port);
   if (pathS != path || addr != mqttPar.MQTT_Server || port != mqttPar.MQTT_Port) {
@@ -150,7 +151,7 @@ static void Manager_TCP(void) {
   }
 
   /*socket未占用时连接到服务器*/
-  if (System_SockIsLock() == FALSE) {
+  if (System_SockIsConnected(&addr, &port) == FALSE) {
     isconnect = FALSE;
     System_SetSocket(mqttPar.MQTT_Server, mqttPar.MQTT_Port);
   } else {
@@ -228,7 +229,33 @@ static void SendHeartBeat(void) {
   desired = cJSON_CreateObject();
   if (desired != NULL) {
     cJSON_AddNumberToObject(desired, "heartbeat", 1);
-    CMD_Updata("CMD-100", desired);
+    if(CMD_Updata("CMD-100", desired)) {
+      DBG_LOG("SendHeartBeat send data success!");
+    } else {
+      DBG_LOG("SendHeartBeat send data error!");
+    }
+  }
+}
+
+/**
+ * 命令发送 finish_process
+ * @param argc 参数项数量
+ * @param argv 参数列表
+ */
+void finish_process(void) {
+  cJSON* desired = NULL;
+
+  DBG_LOG("finish process!");
+
+  desired = cJSON_CreateObject();
+  if (desired != NULL) {
+    cJSON_AddNumberToObject(desired, "bagid", 10000001);  // 福袋ID
+    cJSON_AddNumberToObject(desired, "result", 1);
+    if(CMD_Updata("CMD-103", desired)) {
+      DBG_LOG("finish_process send data success!");
+    } else {
+      DBG_LOG("finish_process send data error!");
+    }
   }
 }
 
@@ -262,6 +289,7 @@ static BOOL isACK(char* msg) {
   }
   return ret;
 }
+
 
 /**
  * 调试命令

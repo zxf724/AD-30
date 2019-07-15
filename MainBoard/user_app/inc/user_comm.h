@@ -76,7 +76,7 @@
 #define VERSION             "AD-30_FM_V0.1"
 #define VERSION_HARDWARE    "AD-30_HD_V1.0"
 
-#define MQTT_SERVER_DEF     "47.92.241.192"
+#define MQTT_SERVER_DEF     "120.76.56.120"
 #define MQTT_PORT_DEF       1883
 #define MQTT_USER_DEF       "user"
 #define MQTT_PWD_DEF        "pwd"

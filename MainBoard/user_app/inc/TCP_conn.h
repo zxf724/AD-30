@@ -9,13 +9,13 @@
 
 /* Exported define -----------------------------------------------------------*/
 /*MQTT调试使能*/
-#define TCP_DEBUG                      1
+#define TCP_DEBUG                      2
 
 
 /*MQTT数据发送的超时时间，单位毫秒*/
-#define PING_TIMEOUT_DEF               10
+#define PING_TIMEOUT_DEF               (10*1000)
 
-#define PING_INVT_DEF                  30
+#define PING_INVT_DEF                  (10*1000)
 
 /*连接失败超时时间,单位秒*/
 #define CONNECT_FAIL_TIMEOUT           10

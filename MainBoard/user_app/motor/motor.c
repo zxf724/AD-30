@@ -525,6 +525,8 @@ void GoodsShow(void) {
 
   // 回复至原点
   MotorSetpeerReset();
+  // 上报
+  finish_process();
 
   DBG_LOG("goods show used time:%dms", TS_COUNT(tspick));
 }

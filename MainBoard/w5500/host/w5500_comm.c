@@ -5,13 +5,13 @@
  * @file w5500_comm.c
  * @version V1.0
  * @date 2016.7.20
- * @brief W5500Ïà¹Øº¯ÊýÎÄ¼þ.
+ * @brief W5500ï¿½ï¿½Øºï¿½ï¿½ï¿½ï¿½Ä¼ï¿½.
  *
  * *********************************************************************
  * @note
  *
  * *********************************************************************
- * @author ËÎÑô
+ * @author ï¿½ï¿½ï¿½ï¿½
  */
 
 
@@ -82,7 +82,7 @@ static void LAN_Console(int argc, char *argv[]);
 /* Exported functions --------------------------------------------------------*/
 
 /**
- * W5500³õÊ¼»¯
+ * W5500ï¿½ï¿½Ê¼ï¿½ï¿½
  */
 void w5500_Init(SPI_HandleTypeDef *handle)
 {
@@ -120,8 +120,8 @@ void w5500_Init(SPI_HandleTypeDef *handle)
 }
 
 /**
- * LANÈÎÎñ
- * @param argument ³õÊ¼»¯²ÎÊý
+ * LANï¿½ï¿½ï¿½ï¿½
+ * @param argument ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
  */
 void LAN_Task(void const *argument)
 {
@@ -149,10 +149,10 @@ void LAN_Task(void const *argument)
 }
 
 /**
- * LAN socket ·¢ËÍÊý¾Ý
- * @param data Êý¾ÝÖ¸Õë
- * @param len  Êý¾ÝµÄ³¤¶È
- * @return ·µ»Ø·¢ËÍ½á¹û
+ * LAN socket ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+ * @param data ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½
+ * @param len  ï¿½ï¿½ï¿½ÝµÄ³ï¿½ï¿½ï¿½
+ * @return ï¿½ï¿½ï¿½Ø·ï¿½ï¿½Í½ï¿½ï¿½
  */
 int16_t LAN_SocketSendData(uint8_t *data, uint16_t len)
 {
@@ -185,8 +185,8 @@ int16_t LAN_SocketSendData(uint8_t *data, uint16_t len)
 }
 
 /**
- * ²éÑ¯LAN socketÁ¬½ÓÊÇ·ñÕý³£
- * @return Á¬½ÓÕý³£·µ»ØTRUE
+ * ï¿½ï¿½Ñ¯LAN socketï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½
+ * @return ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½TRUE
  */
 int8_t LAN_IsSocketConnect(void)
 {
@@ -196,7 +196,7 @@ int8_t LAN_IsSocketConnect(void)
         ret = 0;
     }
     if (LAN_Param.ConnectStatus != FALSE
-        && LAN_Param.status == lan_status_phy_dhcp_leased  //ÐèÌí¼Ó²»Ê¹ÓÃDHCPµÄÇé¿ö
+        && LAN_Param.status == lan_status_phy_dhcp_leased  //ï¿½ï¿½ï¿½ï¿½ï¿½Ó²ï¿½Ê¹ï¿½ï¿½DHCPï¿½ï¿½ï¿½ï¿½ï¿½
         && !LAN_OPT(LAN_OPT_SET_SOCKET)) {
         ret = 1;
     }
@@ -205,9 +205,9 @@ int8_t LAN_IsSocketConnect(void)
 }
 
 /**
- * ÉèÖÃSocket²ÎÊý
- * @param server ·þÎñÆ÷µÄµØÖ·
- * @param port   ¶Ë¿ÚºÅ
+ * ï¿½ï¿½ï¿½ï¿½Socketï¿½ï¿½ï¿½ï¿½
+ * @param server ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Äµï¿½Ö·
+ * @param port   ï¿½Ë¿Úºï¿½
  */
 void LAN_SetSocketParam(char *server, uint16_t port, Sock_RecCBFun callback)
 {
@@ -223,7 +223,7 @@ void LAN_SetSocketParam(char *server, uint16_t port, Sock_RecCBFun callback)
 }
 
 /**
- * ¶ÁLANµÄ×´Ì¬
+ * ï¿½ï¿½LANï¿½ï¿½×´Ì¬
  */
 LAN_Status_t LAN_ReadStatus(void)
 {
@@ -231,7 +231,7 @@ LAN_Status_t LAN_ReadStatus(void)
 }
 
 /**
- * W5500Ó²¼þ¸´Î»
+ * W5500Ó²ï¿½ï¿½ï¿½ï¿½Î»
  */
 void w5500_hw_reset(void)
 {
@@ -242,7 +242,7 @@ void w5500_hw_reset(void)
 }
 
 /**
- * »ñÈ¡ÏµÍ³tick
+ * ï¿½ï¿½È¡ÏµÍ³tick
  */
 uint32_t wizpf_get_systick(void)
 {
@@ -250,7 +250,7 @@ uint32_t wizpf_get_systick(void)
 }
 
 /**
- * ÏµÍ³tick×ª»»ÎªÃë
+ * ÏµÍ³tick×ªï¿½ï¿½Îªï¿½ï¿½
  */
 uint32_t wizpf_tick_conv(uint8_t istick2sec, uint32_t tickorsec)
 {
@@ -262,7 +262,7 @@ uint32_t wizpf_tick_conv(uint8_t istick2sec, uint32_t tickorsec)
 }
 
 /**
- * ¼ÆËãÏµÍ³tickµÄ²îÖµ
+ * ï¿½ï¿½ï¿½ï¿½ÏµÍ³tickï¿½Ä²ï¿½Öµ
  */
 int32_t wizpf_tick_elapse(uint32_t tick)
 {
@@ -273,7 +273,7 @@ int32_t wizpf_tick_elapse(uint32_t tick)
 
 /* Private function prototypes -----------------------------------------------*/
 /**
- * Socket ×´Ì¬¹ÜÀí
+ * Socket ×´Ì¬ï¿½ï¿½ï¿½ï¿½
  */
 static void LAN_ManagerPoll(void)
 {
@@ -281,7 +281,7 @@ static void LAN_ManagerPoll(void)
     static uint32_t tsNotConnect = 0, tsPhy = 0;
 
     switch (LAN_Param.status) {
-    case lan_status_reset:       //¸´Î»ÓÐÖØÆô£¬´ýÈ·ÈÏ
+    case lan_status_reset:       //ï¿½ï¿½Î»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È·ï¿½ï¿½
         LAN_Param.SockFailCount = 0;
         LAN_Param.ConnectStatus = FALSE;
         w5500_hw_reset();
@@ -295,7 +295,7 @@ static void LAN_ManagerPoll(void)
         if (wizphy_getphylink() == PHY_LINK_ON) {
             LAN_Param.status = lan_status_phy_online;
         } else {
-            /*PHY³¤Ê±¼ä¶ÏÏßÖØÆô*/
+            /*PHYï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/
             if (HAL_GetTick() - tsPhy > LAN_PHY_OFFLINE_TIMEOUT * 1000) {
                 tsPhy = HAL_GetTick();
                 reindex++;
@@ -310,12 +310,12 @@ static void LAN_ManagerPoll(void)
         break;
     case lan_status_phy_dhcp_leased:
         tsPhy = HAL_GetTick();
-        if (wizphy_getphylink() != PHY_LINK_ON) { //¸ÄÎª¶¨Ê±¼ì²é»òÕßINTÖÐ¶ÏÌáÉýËÙ¶È
+        if (wizphy_getphylink() != PHY_LINK_ON) { //ï¿½ï¿½Îªï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½INTï¿½Ð¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ù¶ï¿½
             DHCP_init(SOCK_DHCP, DHCP_Buffer);
             LAN_Param.status = lan_status_phy_offline;
         }
         LAN_Socket_Manager();
-        /*³¬¹ý¶¨ÒåµÄÊ±¼äÎ´½¨Á¢socketÁ¬½ÓÖØÆô*/
+        /*ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½Î´ï¿½ï¿½ï¿½ï¿½socketï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/
         if (LAN_Param.ConnectStatus) {
             tsNotConnect = HAL_GetTick();
         } else if (LAN_Param.ConnectAddress != NULL && LAN_Param.ConnectPort > 0) {
@@ -329,19 +329,19 @@ static void LAN_ManagerPoll(void)
         break;
     }
 
-    /*Á¬Ðø´íÎóÖØÆô*/
+    /*ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/
     if (LAN_Param.SockFailCount > 60) {
         LAN_Param.SockFailCount = 0;
         reindex++;
     }
-    /*ÖØÆôLAN*/
+    /*ï¿½ï¿½ï¿½ï¿½LAN*/
     if (reindex > 0) {
         LAN_Param.status = lan_status_reset;
     }
 }
 
 /**
- * Socket ÊÕ·¢´¦Àí
+ * Socket ï¿½Õ·ï¿½ï¿½ï¿½ï¿½ï¿½
  */
 static void LAN_Socket_Manager(void)
 {
@@ -359,7 +359,7 @@ static void LAN_Socket_Manager(void)
             LAN_Param.ConnectStatus = FALSE;
             close(SOCK_USER);
         }
-        /*ÉèÖÃsocket²ÎÊý*/
+        /*ï¿½ï¿½ï¿½ï¿½socketï¿½ï¿½ï¿½ï¿½*/
         if (LAN_OPT(LAN_OPT_SET_SOCKET)) {
             LAN_OPT_CLEAR(LAN_OPT_SET_SOCKET);
             if (stor_paddr != LAN_Param.ConnectAddress || stor_port != LAN_Param.ConnectPort) {
@@ -381,7 +381,7 @@ static void LAN_Socket_Manager(void)
                 pip = LAN_Param.ConnectAddress;
                 ip[0] = 0;
                 if (ip_check(pip, ip) != RET_OK && strlen(pip) > 6) {
-                    /*·ÃÎÊÓòÃû½øÐÐDNS½âÎö*/
+                    /*ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½DNSï¿½ï¿½ï¿½ï¿½*/
                     LAN_DNS(pip, ip);
                 }
                 if (ip[0] != 0) {
@@ -403,7 +403,7 @@ static void LAN_Socket_Manager(void)
 }
 
 /**
- * Socket ÊÕ·¢´¦Àí
+ * Socket ï¿½Õ·ï¿½ï¿½ï¿½ï¿½ï¿½
  */
 static void LAN_Socket_SendRecProc(void)
 {
@@ -414,7 +414,7 @@ static void LAN_Socket_SendRecProc(void)
     static uint32_t tsRec = 0, retRec = 0;
 
     if (LAN_Param.ConnectStatus) {
-        /*socket·¢ËÍ*/
+        /*socketï¿½ï¿½ï¿½ï¿½*/
         evt = osMessageGet(LAN_SendQId, 2);
         if (evt.status == osEventMessage) {
             p = evt.value.p;
@@ -431,7 +431,7 @@ static void LAN_Socket_SendRecProc(void)
                 DBG_INFO("LAN socket send OK, return:%d", ret);
             }
         }
-        /*socket½ÓÊÕ*/
+        /*socketï¿½ï¿½ï¿½ï¿½*/
         ret = GetSocketRxRecvBufferSize(SOCK_USER);
         if (ret != retRec) {
             retRec = ret;
@@ -467,9 +467,9 @@ static void LAN_Socket_SendRecProc(void)
 }
 
 /**
- * DNSÓòÃû½âÎö
- * @param domain ÓòÃû
- * @return ·µ»Ø½âÎö½á¹û
+ * DNSï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+ * @param domain ï¿½ï¿½ï¿½ï¿½
+ * @return ï¿½ï¿½ï¿½Ø½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
  */
 static BOOL LAN_DNS(char *domain, uint8_t *ipout)
 {
@@ -478,7 +478,7 @@ static BOOL LAN_DNS(char *domain, uint8_t *ipout)
 
     uint8_t * dns_buff, ipdns[4];
 
-    /*·ÃÎÊÓòÃû½øÐÐDNS½âÎö*/
+    /*ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½DNSï¿½ï¿½ï¿½ï¿½*/
     dns_buff = pvPortMalloc(MAX_DNS_BUF_SIZE);
     if (dns_buff != NULL) {
         getDNSfromDHCP(ipdns);
@@ -492,7 +492,7 @@ static BOOL LAN_DNS(char *domain, uint8_t *ipout)
     return ret;
 }
 
-/*LANÇý¶¯½Ó¿Ú*/
+/*LANï¿½ï¿½ï¿½ï¿½ï¿½Ó¿ï¿½*/
 static void w5500_Mutex_get(void)
 {
     osRecursiveMutexWait(w5500_MutexId, osWaitForever);
@@ -545,9 +545,9 @@ static void w5500_write_byte(uint8_t c)
 }
 
 /**
- * SPI falshµ÷ÊÔÃüÁî
- * @param argc ²ÎÊýÏîÊýÁ¿
- * @param argv ²ÎÊýÁÐ±í
+ * SPI falshï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+ * @param argc ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+ * @param argv ï¿½ï¿½ï¿½ï¿½ï¿½Ð±ï¿½
  */
 static void LAN_Console(int argc, char *argv[])
 {
@@ -571,25 +571,25 @@ static void LAN_Console(int argc, char *argv[])
                 sock = uatoi(argv[1]);
                 if (port_check((int8_t *)argv[2], &port) == RET_OK) {
                     ret = TCPServerOpen(sock, port);
-                    DBG_LOG("socket:%d TCP server open return£º%d.", sock, ret);
+                    DBG_LOG("socket:%d TCP server open returnï¿½ï¿½%d.", sock, ret);
                 }
             } else if (strcmp(argv[0], "openc") == 0) {
                 sock = uatoi(argv[1]);
                 if (port_check((int8_t *)argv[3], &port) == RET_OK && ip_check(argv[2], &ip[0]) == RET_OK) {
                     ret = TCPClientOpen(sock, port, ip, port);
-                    DBG_LOG("socket:%d TCP client open  return£º%d.", sock, ret);
+                    DBG_LOG("socket:%d TCP client open  returnï¿½ï¿½%d.", sock, ret);
                 }
             } else if (strcmp(argv[0], "close") == 0) {
                 sock = uatoi(argv[1]);
                 ret = TCPClose(sock);
-                DBG_LOG("socket:%d TCP close return£º%d.", sock, ret);
+                DBG_LOG("socket:%d TCP close returnï¿½ï¿½%d.", sock, ret);
             } else if (strcmp(argv[0], "send") == 0) {
                 sock = uatoi(argv[1]);
                 ret = TCPSend(sock, (int8_t *)argv[2], strlen(argv[2]));
-                DBG_LOG("socket:%d TCP send return£º%d.", sock, ret);
+                DBG_LOG("socket:%d TCP send returnï¿½ï¿½%d.", sock, ret);
             } else if (strcmp(argv[0], "check") == 0) {
                 sock = uatoi(argv[1]);
-                DBG_LOG("socket:%d TCP connect check return£º%d.", sock, TCPConnChk(sock));
+                DBG_LOG("socket:%d TCP connect check returnï¿½ï¿½%d.", sock, TCPConnChk(sock));
             }
         } else if (strcmp(argv[0], "socket") == 0) {
             sock = uatoi(argv[1]);
@@ -641,7 +641,7 @@ static void LAN_Console(int argc, char *argv[])
             }
         } else if (strcmp(argv[0], "dns") == 0) {
             LAN_DNS(argv[1], ip);
-            DBG_LOG("DNS running, domain£º%s ip is:%s", argv[1], inet_nntoa(ip));
+            DBG_LOG("DNS running, domainï¿½ï¿½%s ip is:%s", argv[1], inet_nntoa(ip));
         }
         osRecursiveMutexRelease(w5500_MutexId);
     }
