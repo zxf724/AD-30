@@ -734,7 +734,7 @@ static void MotorDelayUs(uint32_t us) {
   for (i = 0; i < us; i++) {
     j = 5;
     while (j--) {
-      continue;
+      continue; 
     }
   }
 }

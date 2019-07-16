@@ -563,7 +563,6 @@ void StartDefaultTask(void const* argument) {
     osDelay(2);
     CMD_UART_Read_Poll();
     UART_Refresh_Poll();
-
     LED_FlashPoll();
     DFU_Poll();
     TWDT_CLEAR(startTask);

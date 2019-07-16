@@ -81,7 +81,7 @@ uint8_t Read_xMoto(uint8_t num)
 	return GPIO_ReadInputDataBit(Pin_Array[17+num-1].port,Pin_Array[17+num-1].pin);
 }
 
-/*num: ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿?1ï¿½ï¿½ï¿½ï¿½2ï¿½ï¿½dirï¿½ï¿½ï¿½ï¿½ï¿½ï¿½stepï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/
+/*num: ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½?1ï¿½ï¿½ï¿½ï¿½2ï¿½ï¿½dirï¿½ï¿½ï¿½ï¿½ï¿½ï¿½stepï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/
 void Start_Step(uint8_t num,uint8_t dir,uint8_t step)
 {
 	if(num == 1)

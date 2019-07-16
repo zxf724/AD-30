@@ -58,7 +58,7 @@ int main(void)
 	ds1302_GPIO_Configuration();
 	ds1302_init(write,time);
 	write_1302(0x80,0); 
-	IWDG_Init(6,1024);    //���Ƶ���?64,����ֵΪ625,���ʱ���?1s	
+	IWDG_Init(6,1024);    //���Ƶ���?64,����ֵΪ625,���ʱ���?1s	
 	
 	RTC_Get();
 	time_test = calendar.min;

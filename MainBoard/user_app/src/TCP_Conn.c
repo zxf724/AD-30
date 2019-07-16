@@ -1,11 +1,10 @@
 /* Includes ------------------------------------------------------------------*/
 #include "user_comm.h"
 
-
 /* Private typedef -----------------------------------------------------------*/
 
 /* Private define ------------------------------------------------------------*/
-#define mqttPar     (WorkParam.mqtt)
+#define mqttPar (WorkParam.mqtt)
 
 /* Private macros ------------------------------------------------------------*/
 
@@ -21,12 +20,12 @@ static uint8_t rxbuf[TCP_RX_BUFF_SIZE];
 static Arrived_t recFun = NULL;
 
 /* Private function prototypes -----------------------------------------------*/
-void TCP_Conn_Task(void const* argument);
+void TCP_Conn_Task(void const *argument);
 static void Manager_TCP(void);
 static void Connect_TCP(void);
 static void SendHeartBeat(void);
-static BOOL isACK(char* msg);
-static void tcp_Console(int argc, char* argv[]);
+static BOOL isACK(char *msg);
+static void tcp_Console(int argc, char *argv[]);
 
 /* Exported functions --------------------------------------------------------*/
 
@@ -34,7 +33,6 @@ static void tcp_Console(int argc, char* argv[]);
  * 协议处理初始化
  */
 void TCP_Conn_Init(void) {
-
   osThreadDef(tcp_conn, TCP_Conn_Task, TCP_TASK_PRIO, 0, TCP_TASK_STK_SIZE);
   osThreadCreate(osThread(tcp_conn), NULL);
 
@@ -48,11 +46,10 @@ void TCP_Conn_Init(void) {
  * 协议处理的任务
  * @param argument
  */
-void TCP_Conn_Task(void const* argument) {
+void TCP_Conn_Task(void const *argument) {
   TWDT_DEF(mqttConTask, 60000);
   TWDT_ADD(mqttConTask);
   TWDT_CLEAR(mqttConTask);
-
 
   DBG_LOG("TCP task start.");
   while (1) {
@@ -66,18 +63,14 @@ void TCP_Conn_Task(void const* argument) {
 /**
  * TCP数据传输状态查询
  */
-BOOL TCP_IsDataFlow(void) {
-  return (BOOL)DataFlowCnt;
-}
+BOOL TCP_IsDataFlow(void) { return (BOOL)DataFlowCnt; }
 
 /**
  * 返回TCP连接状态
  *
  * @return 返回TCP连接状态
  */
-BOOL TCP_IsConnected(void) {
-  return isconnect;
-}
+BOOL TCP_IsConnected(void) { return isconnect; }
 
 /**
  * TCP发送数据
@@ -87,7 +80,7 @@ BOOL TCP_IsConnected(void) {
  *
  * @return 返回发送结果
  */
-int16_t TCP_SendData(uint8_t* dat, uint16_t len) {
+int16_t TCP_SendData(uint8_t *dat, uint16_t len) {
   int16_t rc = -1;
 
   if (System_SockIsConnected(NULL, NULL) > 0 && System_SockIsLock() == FALSE) {
@@ -113,10 +106,7 @@ int16_t TCP_SendData(uint8_t* dat, uint16_t len) {
  *
  * @param fun    函数指针
  */
-void TCP_SetArrived(Arrived_t fun) {
-  recFun = fun;
-}
-
+void TCP_SetArrived(Arrived_t fun) { recFun = fun; }
 
 /* Private function prototypes -----------------------------------------------*/
 
@@ -127,7 +117,7 @@ static void Manager_TCP(void) {
   int rc = 0;
   static int8_t pathS = 0, flowcnt = 0;
 
-  char* addr = NULL;
+  char *addr = NULL;
   int8_t path = 0;
   uint16_t port = 0;
 
@@ -141,10 +131,10 @@ static void Manager_TCP(void) {
     flowcnt = 0;
   }
 
-
   /*网络类型变化或者掉线时重新登陆*/
   path = System_SockIsConnected(&addr, &port);
-  if (pathS != path || addr != mqttPar.MQTT_Server || port != mqttPar.MQTT_Port) {
+  if (pathS != path || addr != mqttPar.MQTT_Server ||
+      port != mqttPar.MQTT_Port) {
     pathS = path;
     // 重新登陆
     isconnect = FALSE;
@@ -158,8 +148,8 @@ static void Manager_TCP(void) {
     // 设备登陆
     if (isconnect == FALSE && waitack == FALSE) {
       waitack = TRUE;
-      DBG_LOG("System socket path:%d, server:%s, port:%u.",
-              path, mqttPar.MQTT_Server, mqttPar.MQTT_Port);
+      DBG_LOG("System socket path:%d, server:%s, port:%u.", path,
+              mqttPar.MQTT_Server, mqttPar.MQTT_Port);
       Connect_TCP();
     } else {
       // 发送心跳
@@ -194,20 +184,20 @@ static void Manager_TCP(void) {
         recFun(rxbuf, rc);
       }
       // 处理登陆及心跳应答
-      if (waitack != FALSE && isACK((char*)rxbuf)) {
+      if (waitack != FALSE && isACK((char *)rxbuf)) {
+        isconnect = TRUE;
         waitack = FALSE;
       }
     }
   }
 }
 
-
 /**
  * TCP登陆
  *
  */
 static void Connect_TCP(void) {
-  cJSON* desired = NULL;
+  cJSON *desired = NULL;
 
   DBG_LOG("Do TCP connect.");
 
@@ -222,14 +212,14 @@ static void Connect_TCP(void) {
  * 发送心跳包
  */
 static void SendHeartBeat(void) {
-  cJSON* desired = NULL;
+  cJSON *desired = NULL;
 
   DBG_LOG("send heartbeat.");
 
   desired = cJSON_CreateObject();
   if (desired != NULL) {
     cJSON_AddNumberToObject(desired, "heartbeat", 1);
-    if(CMD_Updata("CMD-100", desired)) {
+    if (CMD_Updata("CMD-100", desired)) {
       DBG_LOG("SendHeartBeat send data success!");
     } else {
       DBG_LOG("SendHeartBeat send data error!");
@@ -243,15 +233,15 @@ static void SendHeartBeat(void) {
  * @param argv 参数列表
  */
 void finish_process(void) {
-  cJSON* desired = NULL;
+  cJSON *desired = NULL;
 
   DBG_LOG("finish process!");
 
   desired = cJSON_CreateObject();
   if (desired != NULL) {
     cJSON_AddNumberToObject(desired, "bagid", 10000001);  // 福袋ID
-    cJSON_AddNumberToObject(desired, "result", 1);
-    if(CMD_Updata("CMD-103", desired)) {
+    cJSON_AddBoolToObject(desired, "result", cJSON_True);
+    if (CMD_Updata("CMD-103", desired)) {
       DBG_LOG("finish_process send data success!");
     } else {
       DBG_LOG("finish_process send data error!");
@@ -266,10 +256,11 @@ void finish_process(void) {
  *
  * @return 收到应答返回TRUE
  */
-static BOOL isACK(char* msg) {
+static BOOL isACK(char *msg) {
   BOOL ret = FALSE;
 
-  cJSON* root = NULL, *msgid = NULL, *cmd = NULL, *desired = NULL, *deviceid = NULL;
+  cJSON *root = NULL, *msgid = NULL, *cmd = NULL, *desired = NULL,
+        *deviceid = NULL;
 
   root = cJSON_Parse(msg);
   if (root != NULL) {
@@ -277,11 +268,13 @@ static BOOL isACK(char* msg) {
     deviceid = cJSON_GetObjectItem(root, "deviceid");
 
     // 判断设备ID是否一致
-    if (msgid != NULL && msgid->type == cJSON_String
-        && deviceid != NULL && (strcmp(deviceid->valuestring, WorkParam.mqtt.MQTT_ClientID) == 0)) {
+    if (msgid != NULL && msgid->type == cJSON_String && deviceid != NULL &&
+        (strcmp(deviceid->valuestring, WorkParam.mqtt.MQTT_ClientID) == 0)) {
       desired = cJSON_GetObjectItem(root, "desired");
       cmd = cJSON_GetObjectItem(root, "cmd");
-      if (cmd != NULL && desired != NULL && (strcmp(cmd->valuestring, "CMD-99") == 0)) {
+      if (cmd != NULL && desired != NULL &&
+          (strcmp(cmd->valuestring, "CMD-99") == 0)) {
+        DBG_LOG("heartbeat rsp OK.");
         ret = TRUE;
       }
     }
@@ -290,16 +283,24 @@ static BOOL isACK(char* msg) {
   return ret;
 }
 
-
 /**
  * 调试命令
  * @param argc 参数项数量
  * @param argv 参数列表
  */
-static void tcp_Console(int argc, char* argv[]) {
+static void tcp_Console(int argc, char *argv[]) {
   argv++;
   argc--;
-
-
+  if (ARGV_EQUAL("CMD-103")) {
+    DBG_LOG("CMD-103 send success!");
+    finish_process();
+  } else if (ARGV_EQUAL("CMD-104")) {
+    DBG_LOG("CMD-104 send success!");
+    return_all_parameter();
+  } else if (ARGV_EQUAL("CMD-105")) {
+    DBG_LOG("CMD-105 send success!");
+    has_no_goods();
+  } else if (ARGV_EQUAL("test")) {
+    TCP_SendData((uint8_t *)argv[1], strlen(argv[1]));
+  }
 }
-
