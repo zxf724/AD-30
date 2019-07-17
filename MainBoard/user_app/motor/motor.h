@@ -97,7 +97,7 @@ void MotorControlInit(void);
 
 void MotorSetpeerReset(void);
 void MotorSetpperMove(uint32_t xstep, uint32_t zstep);
-void GoodsPickup(uint8_t index);
+uint8_t GoodsPickup(uint8_t index);
 void GoodsShow(void);
 BOOL GoodsCheck(uint8_t index);
 

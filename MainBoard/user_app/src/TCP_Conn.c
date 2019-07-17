@@ -240,7 +240,7 @@ void finish_process(void) {
   desired = cJSON_CreateObject();
   if (desired != NULL) {
     cJSON_AddNumberToObject(desired, "bagid", 10000001);  // 福袋ID
-    cJSON_AddBoolToObject(desired, "result", cJSON_True);
+    cJSON_AddNumberToObject(desired, "result", 1);
     if (CMD_Updata("CMD-103", desired)) {
       DBG_LOG("finish_process send data success!");
     } else {

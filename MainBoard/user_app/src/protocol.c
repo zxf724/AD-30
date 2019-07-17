@@ -93,19 +93,7 @@ void ArrivePath(uint8_t *dat, uint16_t len) {
     // 判断设备ID一致
     deviceid = cJSON_GetObjectItem(root, "deviceid");
     // test
-    if (msgid != NULL) {
-      DBG_LOG("msgid != NULL");
-    }
-    if (msgid->type == cJSON_String) {
-      DBG_LOG("msgid->type == cJSON_String");
-    }
-    if (deviceid != NULL) {
-      DBG_LOG("deviceid != NUL");
-    }
-    if (strcmp(deviceid->valuestring, WorkParam.mqtt.MQTT_ClientID) == 0) {
-      DBG_LOG(
-          "strcmp(deviceid->valuestring, WorkParam.mqtt.MQTT_ClientID) == 0");
-    }
+
 
     if (msgid != NULL && msgid->type == cJSON_String && deviceid != NULL) {
       DBG_LOG("data is correct!");
@@ -223,13 +211,14 @@ void has_no_goods(void) {
 }
 
 void Get_Mote_Data(uint8_t data) {
-  uint8_t i = 0;
   uint8_t good_check = 0;
   DBG_LOG("get moto data!!");
   DBG_LOG("data is %d", data);
-  if (i > 0 && i <= 16) {
-    GoodsPickup(data);
-    GoodsShow();
+  if (data > 0 && data <= 16) {
+    if (GoodsPickup(data)) {
+      DBG_LOG("success to open the road");
+      GoodsShow();
+    }
     good_check = GoodsCheck(data);
     DBG_LOG("rooad%d check result:d", data, good_check);
     if (good_check == 0) {
@@ -260,7 +249,7 @@ void return_all_parameter(void) {
     cJSON_AddStringToObject(desired, "project", PROJECT);   // 项目名称
     cJSON_AddStringToObject(desired, "firmware", VERSION);  // 固件版本
     cJSON_AddStringToObject(desired, "hardware", VERSION_HARDWARE);  // 硬件版本
-    cJSON_AddStringToObject(desired, "status", "ok");  // 工作与故障状态
+    cJSON_AddNumberToObject(desired, "status", 1);  // 工作与故障状态
     if (CMD_Updata("CMD-104", desired)) {
       DBG_LOG("has_no_goods send data success!");
     } else {

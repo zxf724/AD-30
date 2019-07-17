@@ -33,7 +33,7 @@ static uint32_t gs_x_pos = 0, gs_z_pos = 0;
 
 // 定义各货道
 static uint32_t gs_road_pos[16][2] = {
-  { 2055, 61840 }, { 1380, 61840 }, { 705, 61640 }, { 50, 61640 },
+  { 2055, 61600 }, { 1380, 61600 }, { 705, 61600 }, { 50, 61600 },
   { 2055, 46010 }, { 1380, 46010 }, { 705, 46010 }, { 30, 46010 },
   { 2055, 30180 }, { 1380, 30180 }, { 705, 30180 }, { 30, 30180 },
   { 2055, 14350 }, { 1380, 14350 }, { 705, 14350 }, { 30, 14350 },
@@ -317,9 +317,11 @@ void MotorSetpperMove(uint32_t xstep, uint32_t zstep) {
  *
  * @param index  货道的序号
  */
-void GoodsPickup(uint8_t index) {
+uint8_t GoodsPickup(uint8_t index) {
   uint32_t ts, tspick, ir = 0, rfid = 0;
   BOOL rfidread = FALSE;
+  BOOL getgoods = TRUE;
+
 
   TS_INIT(tspick);
   DBG_LOG("goods pickup action, from road%d", index);
@@ -453,10 +455,14 @@ void GoodsPickup(uint8_t index) {
     osDelay(2);
     rfidread = ReadRFID(&rfid);
   }
+  if (rfidread == FALSE) {
+    DBG_LOG("error!");
+    getgoods = FALSE;
+  }
   // 货舱电机停止
   CARGO_MOVE_STOP();
-
   DBG_LOG("goods pickup used time:%dms", TS_COUNT(tspick));
+  return  getgoods;
 }
 
 /**
@@ -810,8 +816,12 @@ static void motor_Console(int argc, char* argv[]) {
     i = uatoi(argv[1]);
     DBG_LOG("pickup goods road:%d", i);
     if (i > 0 && i <= 16) {
-      GoodsPickup(i);
-      GoodsShow();
+      if(GoodsPickup(i)) {
+        GoodsShow();
+      } else{
+        DBG_LOG("error for get the good!");
+        //send news
+      }
       DBG_LOG("rooad%d check result:d", GoodsCheck(i));
     }
   }
