@@ -11,8 +11,7 @@
 #include "user_comm.h"
 /* Private typedef -----------------------------------------------------------*/
 // 定义步进电机运动状态
-typedef enum
-{
+typedef enum {
   motor_start,
   motor_start_fast,
   motor_fast,
@@ -33,14 +32,14 @@ static uint32_t gs_x_pos = 0, gs_z_pos = 0;
 
 // 定义各货道
 static uint32_t gs_road_pos[16][2] = {
-  { 2055, 61600 }, { 1380, 61600 }, { 705, 61600 }, { 50, 61600 },
-  { 2055, 46010 }, { 1380, 46010 }, { 705, 46010 }, { 30, 46010 },
-  { 2055, 30180 }, { 1380, 30180 }, { 705, 30180 }, { 30, 30180 },
-  { 2055, 14350 }, { 1380, 14350 }, { 705, 14350 }, { 30, 14350 },
+    {2055, 61600}, {1380, 61600}, {705, 61600}, {50, 61600},
+    {2055, 46150}, {1380, 46150}, {705, 46150}, {30, 46150},
+    {2055, 30180}, {1380, 30180}, {705, 30180}, {30, 30180},
+    {2055, 14350}, {1380, 14350}, {705, 14350}, {30, 14450},
 };
 
-static uint32_t gs_backup_pos[2] = { 5, 0 };
-static uint32_t gs_show_pos[2] = { 1042, 20000 };
+static uint32_t gs_backup_pos[2] = {5, 0};
+static uint32_t gs_show_pos[2] = {1042, 20000};
 
 /* Private function prototypes -----------------------------------------------*/
 static void MotorDelayUs(uint32_t us);
@@ -57,7 +56,6 @@ void MotorControlInit(void) {
 
   DBG_LOG("Motor control init OK.");
 }
-
 
 /**
  * 步进电机复位，用于货架归位
@@ -77,8 +75,8 @@ void MotorSetpeerReset(void) {
   IO_H(PUL1);
 
   TS_INIT(tsReset);
-  while ((!TS_IS_OVER(tsReset, MOTOR_RESET_TIME_MAX))
-         && (xrst == FALSE  || zrst == FALSE)) {
+  while ((!TS_IS_OVER(tsReset, MOTOR_RESET_TIME_MAX)) &&
+         (xrst == FALSE || zrst == FALSE)) {
     MotorDelayUs(1);
     HAL_IWDG_Refresh(&hiwdg);
 
@@ -320,8 +318,6 @@ void MotorSetpperMove(uint32_t xstep, uint32_t zstep) {
 uint8_t GoodsPickup(uint8_t index) {
   uint32_t ts, tspick, ir = 0, rfid = 0;
   BOOL rfidread = FALSE;
-  BOOL getgoods = TRUE;
-
 
   TS_INIT(tspick);
   DBG_LOG("goods pickup action, from road%d", index);
@@ -390,7 +386,8 @@ uint8_t GoodsPickup(uint8_t index) {
   // 等待货舱传感器检测到红外
   TS_INIT(ts);
   ir = 0;
-  while (ir == 0 && !TS_IS_OVER(ts, DC_MOTOR_MOVE_TIME_MAX + CARGO_MOTOR_MOVE_TIME_MAX)) {
+  while (ir == 0 &&
+         !TS_IS_OVER(ts, DC_MOTOR_MOVE_TIME_MAX + CARGO_MOTOR_MOVE_TIME_MAX)) {
     //货舱电机传感器
     ir = IS_IR_DECT(18);
     osDelay(2);
@@ -457,12 +454,10 @@ uint8_t GoodsPickup(uint8_t index) {
   }
   if (rfidread == FALSE) {
     DBG_LOG("error!");
-    getgoods = FALSE;
   }
   // 货舱电机停止
   CARGO_MOVE_STOP();
   DBG_LOG("goods pickup used time:%dms", TS_COUNT(tspick));
-  return  getgoods;
 }
 
 /**
@@ -514,12 +509,13 @@ void GoodsShow(void) {
   CARGO_MOVE_REVERSE();
   ir = 0;
   TS_INIT(ts);
-  while (ir == 0 && !TS_IS_OVER(ts, DC_MOTOR_MOVE_TIME_MAX)) {   // 出错处理，会导致卡住
+  while (ir == 0 &&
+         !TS_IS_OVER(ts, DC_MOTOR_MOVE_TIME_MAX)) {  // 出错处理，会导致卡住
     osDelay(2);
     ir = IS_IR_DECT(17);
   }
   //十秒后检查RFID，如果没有检测到则货道反转
-  
+
   // 货舱电机停止
   CARGO_MOVE_STOP();
 
@@ -545,7 +541,6 @@ void GoodsShow(void) {
  * @return 有货物返回TRUE
  */
 BOOL GoodsCheck(uint8_t index) {
-
   uint32_t ts, tspick, ir = 0;
   TS_INIT(tspick);
   DBG_LOG("goods check action, road%d", index);
@@ -719,7 +714,6 @@ BOOL GoodsCheck(uint8_t index) {
       break;
   }
 
-
   DBG_LOG("goods check used time:%dms, return:%d", TS_COUNT(tspick), ir);
 
   return (BOOL)ir;
@@ -727,22 +721,24 @@ BOOL GoodsCheck(uint8_t index) {
 
 /* Private functions ---------------------------------------------------------*/
 
-
 /**
  * 电机控制微秒延时
  *
  * @param us     延时的微秒
  */
 static void MotorDelayUs(uint32_t us) {
-
   volatile uint16_t i, j;
 
   for (i = 0; i < us; i++) {
     j = 5;
     while (j--) {
-      continue; 
+      continue;
     }
   }
+}
+
+void open_road(uint8_t num) {
+  DBG_LOG("open road!");
 }
 
 /**
@@ -812,42 +808,72 @@ static void motor_Console(int argc, char* argv[]) {
   } else if (ARGV_EQUAL("moveshow")) {
     DBG_LOG("move to show position.");
     MotorMoveTo(gs_show_pos[0], gs_show_pos[1]);
-  } else if (ARGV_EQUAL("test")) {    // test
+  } else if (ARGV_EQUAL("test")) {  // test
     i = uatoi(argv[1]);
     DBG_LOG("pickup goods road:%d", i);
     if (i > 0 && i <= 16) {
-      if(GoodsPickup(i)) {
-        GoodsShow();
-      } else{
-        DBG_LOG("error for get the good!");
-        //send news
-      }
-      DBG_LOG("rooad%d check result:d", GoodsCheck(i));
+      GoodsPickup(i);
+      GoodsShow();
+    } else {
+      DBG_LOG("error for get the good!");
+      // send news
     }
+    DBG_LOG("rooad%d check result:d", GoodsCheck(i));
   }
   // test
-  else if (ARGV_EQUAL("gap_door_up")) {   // gap_door_up
+  else if (ARGV_EQUAL("gap_door_up")) {  // gap_door_up
     DBG_LOG("gap_door_up");
     DOOR_MOVE_REVERSE();
-  } else if (ARGV_EQUAL("gap_door_down")) {   // gap_door_down
+  } else if (ARGV_EQUAL("gap_door_down")) {  // gap_door_down
     DBG_LOG("gap_door_down");
     DOOR_MOVE_FORWARD();
-  } else if (ARGV_EQUAL("gap_door_stop")) {   // gap_door_stop
+  } else if (ARGV_EQUAL("gap_door_stop")) {  // gap_door_stop
     DBG_LOG("gap_door_stop");
     DOOR_MOVE_STOP();
-  } else if (ARGV_EQUAL("cargo_motor_in")) {   // cargo_motor_in
+  } else if (ARGV_EQUAL("cargo_motor_in")) {  // cargo_motor_in
     DBG_LOG("cargo_motor_in");
     CARGO_MOVE_FORWARD();
-  } else if (ARGV_EQUAL("cargo_motor_out")) {   // cargo_motor_out
+  } else if (ARGV_EQUAL("cargo_motor_out")) {  // cargo_motor_out
     DBG_LOG("cargo_motor_out");
     CARGO_MOVE_REVERSE();
-  } else if (ARGV_EQUAL("cargo_motor_stop")) {   // cargo_motor_stop
+  } else if (ARGV_EQUAL("cargo_motor_stop")) {  // cargo_motor_stop
     DBG_LOG("cargo_motor_stop");
     CARGO_MOVE_STOP();
-  } else if (ARGV_EQUAL("hight_test")) {   // hight_test
+  } else if (ARGV_EQUAL("hight_test")) {  // hight_test
     DBG_LOG("hight_test");
     MOTOR_DC_ACTION(2);
     CARGO_MOVE_FORWARD();
+  } else if (ARGV_EQUAL("open_road_1")) {
+    MOTOR_DC_ACTION(1);
+  }else if (ARGV_EQUAL("open_road_2")) {
+    MOTOR_DC_ACTION(2);
+  }else if (ARGV_EQUAL("open_road_3")) {
+    MOTOR_DC_ACTION(3);
+  }else if (ARGV_EQUAL("open_road_4")) {
+    MOTOR_DC_ACTION(4);
+  }else if (ARGV_EQUAL("open_road_5")) {
+    MOTOR_DC_ACTION(5);
+  }else if (ARGV_EQUAL("open_road_6")) {
+    MOTOR_DC_ACTION(6);
+  }else if (ARGV_EQUAL("open_road_7")) {
+    MOTOR_DC_ACTION(7);
+  }else if (ARGV_EQUAL("open_road_8")) {
+    MOTOR_DC_ACTION(8);
+  }else if (ARGV_EQUAL("open_road_9")) {
+    MOTOR_DC_ACTION(9);
+  }else if (ARGV_EQUAL("open_road_10")) {
+    MOTOR_DC_ACTION(10);
+  }else if (ARGV_EQUAL("open_road_11")) {
+    MOTOR_DC_ACTION(11);
+  }else if (ARGV_EQUAL("open_road_12")) {
+    MOTOR_DC_ACTION(12);
+  }else if (ARGV_EQUAL("open_road_13")) {
+    MOTOR_DC_ACTION(13);
+  }else if (ARGV_EQUAL("open_road_14")) {
+    MOTOR_DC_ACTION(14);
+  }else if (ARGV_EQUAL("open_road_15")) {
+    MOTOR_DC_ACTION(15);
+  }else if (ARGV_EQUAL("open_road_16")) {
+    MOTOR_DC_ACTION(16);
   }
 }
-

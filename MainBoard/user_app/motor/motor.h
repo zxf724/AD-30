@@ -45,6 +45,8 @@ extern "C"
 // 货道直流电机启动
 #define MOTOR_DC_ACTION(x)    IO_H(MOTOR##x)
 
+#define MOTOR_OPEN(x)         IO_H(MOTOR##x)
+
 // 货道直流电机停止
 #define MOTOR_DC_STOP(x)      IO_L(MOTOR##x)
 
@@ -100,6 +102,7 @@ void MotorSetpperMove(uint32_t xstep, uint32_t zstep);
 uint8_t GoodsPickup(uint8_t index);
 void GoodsShow(void);
 BOOL GoodsCheck(uint8_t index);
+void open_road(uint8_t num);
 
 #ifdef __cplusplus
 }

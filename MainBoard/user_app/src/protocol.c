@@ -215,10 +215,8 @@ void Get_Mote_Data(uint8_t data) {
   DBG_LOG("get moto data!!");
   DBG_LOG("data is %d", data);
   if (data > 0 && data <= 16) {
-    if (GoodsPickup(data)) {
-      DBG_LOG("success to open the road");
-      GoodsShow();
-    }
+    GoodsPickup(data);
+    GoodsShow();
     good_check = GoodsCheck(data);
     DBG_LOG("rooad%d check result:d", data, good_check);
     if (good_check == 0) {
